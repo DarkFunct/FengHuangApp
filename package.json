@@ -1,8 +1,8 @@
 {
-  "name": "vue_vux_cli2",
+  "name": "FengHuang",
   "version": "1.0.0",
   "description": "A Vue.js project",
-  "author": "clghy <503773902@qq.com>",
+  "author": "yaotw",
   "private": true,
   "scripts": {
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
