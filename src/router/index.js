@@ -22,6 +22,11 @@ const router =  new Router({
     {
       path: '/login', name: 'login', component: r => require.ensure([], () => r(require('@/views/login')), 'login')
     },
+    {
+      path: '/togambling',name: 'userAgreement',meta: { requireAuth: true, },
+      component: r => require.ensure([], () => r(require('@/views/userAgreement')), 'userAgreement')
+    },
+
     // { path: '/gambling/luckyairship', name: 'luckyairship',
     //       meta: {
     //           requireAuth: true,
@@ -37,7 +42,8 @@ router.beforeEach((to, from, next) => {
 
   let token = cookie.getCookie('accesstoken');
 
-    if (to.matched.some(r => r.meta.requireAuth)) {
+    if (to.meta.requireAuth) {
+      console.log('requireAuth',to.meta.requireAuth);
         if (token) {
             next();
         }
@@ -46,8 +52,7 @@ router.beforeEach((to, from, next) => {
                 path: '/login'
             })
         }
-    }
-    else {
+    } else {
         next();
     }
 });

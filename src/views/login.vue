@@ -1,6 +1,6 @@
 <template>
   <div>
-    <group title="Default">
+    <group title="登录">
       <x-input title="帐号:" v-model="username" placeholder="请输入帐号"></x-input>
       <x-input title="密码:" v-model="password" type="password" placeholder="请输入登录密码"></x-input>
       <x-input title="验证码:" v-model="yzma" placeholder="请输入验证码">
@@ -19,21 +19,17 @@
 
 <script>
 import cookieParser from './../assets/js/cookie';
-import { AlertModule,Alert} from 'vux'
-
 export default {
   data () {
-    let vm = this;
     return {
-      password: '',
-      username: '',
+      password: 'a111111',
+      username: 'a4m3huiyuan1',
       yzma: '',
       tupian: '',
       yanzhengma: ''
     }
   },
   components: {
-    Alert
   },
   created() {
     this.getyanzheng();
@@ -91,31 +87,44 @@ export default {
     async login() {
       let that = this; 
 
-
       if(this.yzma != this.yanzhengma) {
-          AlertModule.show({
-            title: 'VUX is Cool',
-            content: this.$t('Do you agree?'),
-            onShow () {
-              console.log('Module: I\'m showing')
-            },
-            onHide () {
-              console.log('Module: I\'m hiding now')
-            }
+          this.$vux.alert.show({
+            title: '提示',
+            content: '验证码错误!'
           })
+
+      } else {
+
+        let obj = {
+          username: this.username,
+          password: this.password
+        };
+
+        this.$vux.loading.show({
+         text: 'Loading'
+        })
+
+        await that.$post(`${window.url}/api/login`,obj).then((res) => {
+          that.$handelResponse(res, (result) => {
+            that.$vux.loading.hide();
+
+            if(result.code === 200) {
+              cookieParser.setCookie("accesstoken", result.token);
+              that.$router.push({name: 'userAgreement'});
+            } else {
+              that.$vux.alert.show({
+                  title: '提示',
+                  content: result.msg
+                })
+            }
+
+
+          })
+        });
+
       }
 
-      let obj = {
-        username: this.username,
-        password: this.password
-      };
-
-      let ret = await this.$post(`${window.url}/api/login`, obj);
-      if(ret.code === 200) {
-        cookieParser.setCookie("accesstoken", ret.token);
-        this.$router.push({name: 'userAgreement'});
-      }
-
+     // let ret = await this.$post(`${window.url}/api/login`, obj);
 
     }
   }

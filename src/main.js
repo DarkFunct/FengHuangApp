@@ -7,6 +7,9 @@ import "babel-polyfill"
 import 'lib-flexible/flexible'
 import '@/assets/scss/index.scss'
 
+// import Vuex from 'vuex'
+// Vue.use(Vuex)
+
 import $ from 'jquery'
 import _ from './assets/js/lodash.js';
 import axios from 'axios';
@@ -20,7 +23,7 @@ import _g from './assets/js/global';
 import request from './assets/js/request.js';
 Vue.use(request);
 
-import { Group,Cell,Loading,XInput,XButton,Alert } from 'vux'
+import { Group,Cell,Loading,XInput,XButton,Alert,Datetime,XHeader,Flexbox, FlexboxItem  } from 'vux'
 
 Vue.component('x-input', XInput)
 Vue.component('loading', Loading)
@@ -28,6 +31,14 @@ Vue.component('group', Group)
 Vue.component('cell', Cell)
 Vue.component('x-button', XButton)
 Vue.component('alert', Alert)
+Vue.component('datetime', Datetime)
+Vue.component('x-header', XHeader)
+Vue.component('flexbox', Flexbox)
+Vue.component('flexbox-item', FlexboxItem)
+
+import  { LoadingPlugin,AlertPlugin } from 'vux'
+Vue.use(LoadingPlugin)
+Vue.use(AlertPlugin)
 
 
 import FastClick from 'fastclick'
