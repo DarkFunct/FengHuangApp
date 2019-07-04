@@ -4,6 +4,7 @@ const utils = require('./utils')
 const config = require('../config')
 const vueLoaderConfig = require('./vue-loader.conf')
 const vuxLoader = require('vux-loader')
+var webpack = require('webpack')
 
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
@@ -23,6 +24,18 @@ const webpackConfig = {
       ? config.build.assetsPublicPath
       : config.dev.assetsPublicPath
   },
+  plugins: [
+    new webpack.ProvidePlugin({
+      jQuery: 'jquery',
+      $: 'jquery',
+      jquery: 'jquery'
+    }),
+    new webpack.DefinePlugin({
+      ENV: process.env.NODE_ENV === 'production' ? "'pro'" : "'dev'",
+      assetsPublicPath: "\"" + (process.env.NODE_ENV === 'production' ? config.build.assetsPublicPath : config.dev.assetsPublicPath) + "\"",
+      // currentVersion: process.env.NODE_ENV === 'production' ? new Date().getTime() : "''",//每次打包加入版本号
+    })
+  ],
   resolve: {
     extensions: ['.js', '.vue', '.json'],
     alias: {
