@@ -4,6 +4,9 @@
         <div v-transfer-dom>
           <loading v-model="isLoading"></loading>
         </div>
+        <div v-transfer-dom>
+          <toast v-model="showToast.show" type="text" width="12em" :time="800" is-show-mask :text="showToast.text" :position="'middle'"></toast>
+        </div>
     </div>
 </template>
 
@@ -24,7 +27,8 @@ export default {
     },
     computed: {
         ...mapGetters({
-          isLoading: 'getisLoading'
+          isLoading: 'getisLoading',
+          showToast: 'getshowToast'
         })
       },
     components: {
@@ -101,9 +105,9 @@ export default {
 </style>
 
 <style lang="less">
-@import '~vux/src/styles/reset.less';
-@import '~vux/src/styles/1px.less';
-@import '~vux/src/styles/tap.less';
+@import "styles/reset.less";
+@import "styles/1px.less";
+@import "styles/tap.less";
 
 body {
   background-color: #fbf9fe;

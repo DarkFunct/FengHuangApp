@@ -1,8 +1,27 @@
 <template>
-  <div id="main">
+  <div id="home">
+    <x-header :left-options="{showBack: false}">凤凰</x-header>
+      <div id="cp-container" class="layui-container layui-clear layui-border-box">
+            <div class="layui-row layui-col-space10" v-for="(itemPa,indexPa) in bocaiTypeListTemp">
+                <div class="layui-col-xs4" v-for="(item,index) in itemPa">
+                    <div>
+                        <a><img :src="'./static/img/'+item.bocaiName+'.png'" width="70px"><br><span>{{item.bocaiName}}</span></a>
+                    </div>
+                </div>
 
-  <div><a @click="wefewf">efewfewfe</a></div>
+                <!-- <div>
+                    <div class="">
 
+                    </div>
+                </div>
+                <div>
+                    <div class="">
+
+                    </div>
+                </div> -->
+
+            </div>
+        </div>
   </div>
 </template>
 
@@ -39,17 +58,16 @@ export default {
   },
   computed: {
     ...mapGetters({
-      bocaiTypeList: 'getbocaiTypeList',
-      isLoading: 'getisLoading'
-    })
+      bocaiTypeList: 'getbocaiTypeList'
+    }),
+    bocaiTypeListTemp() {
+      return _.chunk(this.bocaiTypeList,3) || [];
+    }
   },
   beforeDestroy: function() {
       this.clearTime();
   },
   methods: {
-    wefewf() {
-      store.commit('updateisLoading',true);
-    },
     outHide() {
       //console.log('outHide');
       $('.overShowLi').removeClass('active');

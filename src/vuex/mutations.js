@@ -7,6 +7,9 @@ const mutations = {
   },
   updateisLoading(state,v) {
   	state.isLoading = v;
+  },
+  updateshowToast(state,v) {
+  	state.showToast = v;
   }
 }
 

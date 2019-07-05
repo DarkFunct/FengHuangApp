@@ -19,6 +19,10 @@ let currUser;
 export default {
     install: function (Vue, options) {
 
+        Vue.prototype.$toast = function(text){
+            store.commit('updateshowToast',{show:true,text:text});
+        };
+
 
         Vue.prototype.$success = function(msg){
             notify.call(this, '成功1', (msg || '操作成功!') ,'success');

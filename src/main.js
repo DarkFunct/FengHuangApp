@@ -23,7 +23,7 @@ import _g from './assets/js/global';
 import request from './assets/js/request.js';
 Vue.use(request);
 
-import { Group,Cell,Loading,XInput,XButton,Alert,Datetime,XHeader,Flexbox, FlexboxItem,TransferDom   } from 'vux'
+import { Group,Cell,Loading,XInput,XButton,Alert,Datetime,XHeader,Flexbox, FlexboxItem,TransferDom,Toast } from 'vux'
 
 Vue.component('x-input', XInput)
 Vue.component('loading', Loading)
@@ -35,6 +35,7 @@ Vue.component('datetime', Datetime)
 Vue.component('x-header', XHeader)
 Vue.component('flexbox', Flexbox)
 Vue.component('flexbox-item', FlexboxItem)
+Vue.component('toast', Toast)
 
 Vue.directive('transfer-dom', TransferDom)
 
