@@ -3,15 +3,11 @@
 
   <div><a @click="wefewf">efewfewfe</a></div>
 
-  <!-- <div v-transfer-dom>
-          <loading v-model="isLoading"></loading>
-        </div> -->
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex';
-
 
 export default {
   components: {
@@ -39,9 +35,6 @@ export default {
     }
   },
   async created() {
-    console.log('bocaiTypeList',this.bocaiTypeList);
-
-    console.log('isLoading',this.isLoading);
 
   },
   computed: {
