@@ -12,13 +12,13 @@
       <x-button @click.native="login" type="primary">登  录</x-button>
     </div>
 
-
   </div>
 </template>
 
 
 <script>
 import cookieParser from './../assets/js/cookie';
+import { mapGetters } from 'vuex';
 export default {
   data () {
     return {
@@ -37,7 +37,7 @@ export default {
     if (window.ENV == 'dev') {
       //console.log('研发自动登录');
 
-      //this.logindev();
+      this.logindev();
 
     } else {
       //普通用户登录
@@ -100,13 +100,11 @@ export default {
           password: this.password
         };
 
-        this.$vux.loading.show({
-         text: 'Loading'
-        })
+        stroe.commit('updateisLoading',true);
 
         await that.$post(`${window.url}/api/login`,obj).then((res) => {
           that.$handelResponse(res, (result) => {
-            that.$vux.loading.hide();
+            //stroe.commit('updateisLoading',false);
 
             if(result.code === 200) {
               cookieParser.setCookie("accesstoken", result.token);

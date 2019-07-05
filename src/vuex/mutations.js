@@ -4,6 +4,9 @@ const mutations = {
   },
   updatedirection(state,v) {
   	state.direction = v;
+  },
+  updateisLoading(state,v) {
+  	state.isLoading = v;
   }
 }
 

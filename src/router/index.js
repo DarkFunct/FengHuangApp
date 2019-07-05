@@ -26,7 +26,10 @@ const router =  new Router({
       path: '/togambling',name: 'userAgreement',meta: { requireAuth: true, },
       component: r => require.ensure([], () => r(require('@/views/userAgreement')), 'userAgreement')
     },
-
+    {
+      path: '/home',name: 'home',meta: { requireAuth: true, },
+      component: r => require.ensure([], () => r(require('@/views/home')), 'home')
+    }
     // { path: '/gambling/luckyairship', name: 'luckyairship',
     //       meta: {
     //           requireAuth: true,

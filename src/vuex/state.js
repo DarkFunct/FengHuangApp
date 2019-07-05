@@ -1,6 +1,7 @@
 const state = {
   bocaiTypeList: [],
-  direction:''
+  direction:'',
+  isLoading: false
 }
 
 export default state

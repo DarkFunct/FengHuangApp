@@ -100,7 +100,7 @@ export default {
               break;
             }
 
-            this.$router.push({name: path});
+            this.$router.push({name: 'home'});
           }
       
     }
