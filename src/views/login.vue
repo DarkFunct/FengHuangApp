@@ -58,7 +58,7 @@ export default {
                 // username: 'a4m28dhy',
                 // password: 'a123'
 
-                username: 'a4m3huiyuan1',
+                username: 'atestHYXJ001',
                 password: 'a111111'
 
                 // username: 'xianjinzs2',

@@ -1,13 +1,19 @@
 <template>
-  	<div id="app" @touchstart="bodyTouchStart" @touchmove="bodyTouchMove" @touchend="bodyTouchEnd">
-        <router-view />
-        <div v-transfer-dom>
-          <loading v-model="isLoading"></loading>
-        </div>
-        <div v-transfer-dom>
-          <toast v-model="showToast.show" type="text" width="12em" :time="800" is-show-mask :text="showToast.text" :position="'middle'"></toast>
-        </div>
+  <div id="app" @touchstart="bodyTouchStart" @touchmove="bodyTouchMove" @touchend="bodyTouchEnd">
+
+    <router-view />
+
+    <div v-transfer-dom>
+      <loading v-model="isLoading"></loading>
     </div>
+    <div v-transfer-dom>
+      <toast v-model="showToast.show" type="text" width="15em" :time="2000" is-show-mask :text="showToast.text" :position="'middle'"></toast>
+    </div>
+    <div v-transfer-dom>
+      <alert v-model="showAlert.show" :title="showAlert.title"> {{showAlert.text}}</alert>
+    </div>
+
+  </div>
 </template>
 
 
@@ -28,7 +34,8 @@ export default {
     computed: {
         ...mapGetters({
           isLoading: 'getisLoading',
-          showToast: 'getshowToast'
+          showToast: 'getshowToast',
+          showAlert: 'getshowAlert'
         })
       },
     components: {
@@ -171,7 +178,6 @@ html, body {
 
 .router-view {
   width: 100%;
-  top: 46px;
 }
 .vux-pop-out-enter-active,
 .vux-pop-out-leave-active,

@@ -100,7 +100,7 @@ export default {
               break;
             }
 
-            this.$router.push({name: 'home'});
+            this.$router.push({name: 'bocaiList'});
           }
       
     }

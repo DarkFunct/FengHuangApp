@@ -27,15 +27,31 @@ const router =  new Router({
       component: r => require.ensure([], () => r(require('@/views/userAgreement')), 'userAgreement')
     },
     {
-      path: '/home',name: 'home',meta: { requireAuth: true, },
-      component: r => require.ensure([], () => r(require('@/views/home')), 'home')
+      path: '/home', name: 'home', component: r => require.ensure([], () => r(require('@/views/home')), 'home'),
+      children: [
+        { path: '/home/bocaiList', name: 'bocaiList',
+          meta: {                                
+              requireAuth: true,
+          },
+          component: r => require.ensure([], () => r(require('@/views/home/bocaiList')), 'bocaiList'), meta: { requiresAuth: true }
+        },
+        { path: '/home/userInfo', name: 'userInfo',
+          meta: {                                
+              requireAuth: true,
+          },
+          component: r => require.ensure([], () => r(require('@/views/home/userInfo')), 'userInfo'), meta: { requiresAuth: true }
+        },
+        { path: '/home/changePassword', name: 'changePassword',
+          meta: {                                
+              requireAuth: true,
+          },
+          component: r => require.ensure([], () => r(require('@/views/home/changePassword')), 'changePassword'), meta: { requiresAuth: true }
+        }
+      ]
     }
-    // { path: '/gambling/luckyairship', name: 'luckyairship',
-    //       meta: {
-    //           requireAuth: true,
-    //       },
-    //       component: r => require.ensure([], () => r(require('@/views/apps/bocai/luckyairship')), 'luckyairship'), meta: { requiresAuth: true }
-    // }
+
+
+
   ]
 })
 
@@ -61,8 +77,6 @@ router.beforeEach((to, from, next) => {
 });
 
 router.afterEach((to, from) => {
-  if(store.state.direction !== 'tip')
-    store.commit('updatedirection', 'tip');
 })
 
 export default router;

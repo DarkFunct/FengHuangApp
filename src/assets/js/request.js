@@ -33,6 +33,7 @@ export default {
                 //消息为空，但不需要提示
             } else {
                 console.log(res.data.msg);
+                this.$toast(res.data.msg);
                 
             } 
 
@@ -116,6 +117,7 @@ export default {
                 //this.$success(res.data.msg);
             } else {
                 console.log(res.data.msg);
+                this.$toast(res.data.msg);
             } 
 
             return res.data; // {code: 0, result: {count: 0, rows: []}}
