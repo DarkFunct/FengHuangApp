@@ -65,12 +65,6 @@ const mutations = {
   updateheadTitle(state,v) {
     state.headTitle = v;
   },
-  updateshowBack(state,v) {
-    state.showBack = v;
-  },
-  updateshowMore(state,v) {
-    state.showMore = v;
-  },
   updateshowAlert(state,v) {
     state.showAlert = v;
   }

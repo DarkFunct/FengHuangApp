@@ -19,6 +19,18 @@ let currUser;
 export default {
     install: function (Vue, options) {
 
+        Vue.prototype.$toast = function(text){
+            store.commit('updateshowToast',{show:true,text:text});
+        };
+
+        Vue.prototype.$alert = function(boo,title,text){
+            store.commit('updateshowAlert',{show:boo,title:title,text:text});
+        };
+
+        Vue.prototype.$isLoading = function(booean){
+            store.commit('updateisLoading',booean);
+        };
+
         Vue.prototype.$bocaiImg = function(name){
             
             let path = '';
@@ -62,22 +74,6 @@ export default {
             }
 
             return path;
-        };
-
-        Vue.prototype.$toast = function(text){
-            store.commit('updateshowToast',{show:true,text:text});
-        };
-
-        Vue.prototype.$alert = function(boo,title,text){
-            store.commit('updateshowAlert',{show:boo,title:title,text:text});
-        };
-
-        Vue.prototype.$showBack = function(boo){
-            store.commit('updateshowBack',{showBack:boo});
-        };
-
-        Vue.prototype.$isLoading = function(booean){
-            store.commit('updateisLoading',booean);
         };
 
         Vue.prototype.$success = function(msg){

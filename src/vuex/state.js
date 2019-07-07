@@ -19,8 +19,6 @@ const state = {
   orderOddsVisible: false,
   moneyOrder: '',
   headTitle: '凤凰',
-  showBack: {showBack:false},
-  showMore: false,
   showAlert: {show:false,title:'',text:''}
 }
 

@@ -33,7 +33,12 @@ export default {
     }
   },
   async created() {
-    this.getcUserInfo();
+    if(this.userInfo.username) {
+      console.log('已登录');
+    } else {
+      this.getcUserInfo();
+    }
+    
   },
   computed: {
     ...mapGetters({
@@ -65,10 +70,8 @@ export default {
       } else {
         this.$alert(true,'会员消息','无');
       }
-
     },
     tochangePassword() {
-      this.$showBack(true);
       store.commit('updateheadTitle','修改密码');
       this.$router.push({name: 'changePassword'});
     },
@@ -79,81 +82,6 @@ export default {
       } else {
       }
       this.$router.push({name: 'login'});
-    },
-    openPrize() {
-      this.showOpen = true;
-      $('.openPrize').addClass('active').siblings().removeClass('active');
-    },
-    noOpenPrize() {
-      this.showOpen = false;
-      $('.noOpenPrize').addClass('active').siblings().removeClass('active');
-    },
-    async getchanglong() {
-
-        this.openPrizeList = [];
-        this.noOpenPrizeList = [];
-
-          let that = this;
-          await that.$get(`${window.url}/api/changlong?bocaiTypeId=`+this.bocaiTypeId+'&showNum=10').then((res) => {
-            that.$handelResponse(res, (result) => {
-              if(result.code===200){
-
-                for(let n in result.openPrizeMap) {
-                  let obj = {};
-                  obj.content = n;
-                  obj.num = result.openPrizeMap[n];
-                  this.openPrizeList.push(obj);
-                }
-
-                for(let n in result.noOpenPrizeMap) {
-                  let obj = {};
-                  obj.content = n;
-                  obj.num = result.noOpenPrizeMap[n];
-                  this.noOpenPrizeList.push(obj);
-                }
-
-                //console.log('this.openPrizeMap',this.openPrizeMap);
-                //更新用户信息
-                // bus.$emit('getcUserInfo', ''); 
-                // that.orderDatas.list = [];
-                // that.$success('下注成功！');
-                // that.reset();
-              }
-            })
-          });
-    },
-    async updatePassWord(formName) {
-        let that = this;
-
-          this.$refs[formName].validate(async (valid) => {
-
-          if (valid) {
-
-              let obj = {
-                oldPassWrod: this.ruleForm.oldPassWrod,
-                newPassWord: this.ruleForm.newPassWord
-              }
-
-              let ret = await this.$post(`${window.url}/api/rePassWord`, obj);
-              if(ret.code===200) {
-                    this.$success('修改密码成功!');
-                    this.orderOddsVisible = false;
-                  } else {
-              }
-
-              this.$refs[formName].resetFields();
-
-          } else {
-
-            return false;
-          }
-        });
-    },
-    toUpdatePass() {
-      this.orderOddsVisible = true;
-    },
-    handleClick(tab, event) {
-      //console.log(tab, event);  notice
     },
     async getcUserInfo() {
       let res = await this.$get(`${window.url}/api/cUserInfo`);

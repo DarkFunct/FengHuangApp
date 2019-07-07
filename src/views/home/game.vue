@@ -1,16 +1,6 @@
 <template>
-  <div id="cp-container" class="layui-container layui-clear layui-border-box">
-    <div class="layui-row layui-col-space10" v-for="(itemPa,indexPa) in bocaiTypeListTemp">
-      <div class="layui-col-xs4" v-for="(item,index) in itemPa">
-        <a @click.native="getOdds(item,index)">
-          <img :src="'./static/img/'+item.bocaiName+'.png'" width="70px" height="70px"><br>
-          <span>{{item.bocaiName}}</span><br>
-          <p><span class="time">00:29</span></p>
-        </a>
-      </div>
-
-
-    </div>
+  <div id="game">
+    game
   </div>
 </template>
 
@@ -38,7 +28,10 @@ export default {
       hasResult: false,
       messageinfo: '',
       centerDialogVisible: false,
-      bocaiCategoryList: []
+      bocaiCategoryList: [],
+
+
+      pathBocaiId: this.$route.params.id
 
     }
   },
@@ -50,20 +43,18 @@ export default {
       console.log('????2222?');
       this.getOddsInfo();
     }
-    
 
     this.openPrizeTime = this.$timestampToTimeRi(new Date());
 
-    this.getbocaoName();
-
-    this.getcUserInfo();
+    //this.getbocaoName();
 
     //只循环一个
-    this.getBocaiInfo5sOnce();
+    //this.getBocaiInfo5sOnce();
   },
   computed: {
     ...mapGetters({
-      bocaiTypeList: 'getbocaiTypeList'
+      bocaiTypeList: 'getbocaiTypeList',
+      bocaiTypeId: 'getbocaiTypeId'
     }),
     bocaiTypeListTemp() {
       return _.chunk(this.bocaiTypeList,3) || [];
@@ -109,13 +100,6 @@ export default {
       }
       if (this.t4) {
         clearTimeout(this.t4)
-      }
-    },
-    async getcUserInfo() {
-      let res = await this.$get(`${window.url}/api/cUserInfo`);
-
-      if(res.code===200){
-        store.commit('updateuserInfo',res.data);
       }
     },
     goRightMenu(path) {
@@ -317,31 +301,6 @@ export default {
 
                 that.bocaiCategoryList = result.bocaiCategoryList;
 
-                if([1,8815].findIndex((n) => n==this.bocaiTypeId)>-1) {
-                  that.bocaiCategoryList.push({
-                    id: 100001,
-                    name: "牛牛、梭哈"
-                  },{
-                    id: 100002,
-                    name: "整合"
-                  });
-                } else if([9057,8806,8555].findIndex((n) => n==this.bocaiTypeId)>-1) {
-                  that.bocaiCategoryList.push({
-                    id: 100001,
-                    name: "三、四、五、六名"
-                  },{
-                    id: 100002,
-                    name: "七、八、九、十名"
-                  });
-                } else if([8809].findIndex((n) => n==this.bocaiTypeId)>-1) {
-                  that.bocaiCategoryList.push({
-                    id: 100001,
-                    name: "单球1~8"
-                  },{
-                    id: 100002,
-                    name: "总和、龙虎"
-                  });
-                }
 
                 store.commit('updatebocaiCategory',result.bocaiCategoryList[0]);
 
@@ -355,85 +314,11 @@ export default {
             })
           });
 
-    },
-    async getOdds(item,index) {
-
-      $('.bST_1').siblings().removeClass('bST_1_s active');
-
-      if(['重庆时时彩','极速时时彩','广东快乐十分','极速赛车','幸运飞艇','北京赛车','江苏快3'].findIndex((n) => n==item.bocaiName)>-1) {
-
-        $('.div_gameno_'+item.bocaiId).addClass('active').siblings().removeClass('active');
-
-
-        let path = '';
-          switch (item.bocaiName) {
-            case '重庆时时彩':
-              path = 'chongqindubo';
-              break;
-            case '幸运飞艇':
-              path = 'luckyairship';
-              break;
-            case '北京赛车':
-              path = 'beijingpk10';
-              break;
-            case '山东11选5':
-              path = 'shandong11xuan5';
-              break;
-            case '广东11选5':
-              path = 'guangdong11xuan5';
-              break;
-            case '江西11选5':
-              path = 'jiangxi11xuan5';
-              break;
-            case 'PC蛋蛋':
-              path = 'pcdandan';
-              break;
-            case '江苏快3':
-              path = 'jiangsukuaisan';
-              break;
-            case '北京快乐8':
-              path = 'beijingkuaile8';
-              break;
-            case '极速赛车':
-              path = 'jisusaiche';
-              break;
-            case '极速时时彩':
-              path = 'jisudubo';
-              break;
-            case '广东快乐十分':
-              path = 'guangdongkuaile10';
-              break;
-          }
-
-        store.commit('updatebocaiTypeId',item.bocaiId);
-
-        this.bocaiInfo();
-
-        //this.clearTime();
-
-        store.commit('updatebocaiName',item.bocaiName);
-
-        this.$router.push({name: path});
-
-        this.getOddsInfo();
-
-
-      } else {
-        bus.$emit('iskaipaning', false);
-        store.commit('updatebocaiTypeId','');
-        store.commit('updatebocaiName',item.bocaiName);
-        this.$router.push({name: 'testbocai'});
-      }
-
-      
     }
   },
   mounted() {
     bus.$on('getbocaiInfo', (data) => {
         this.bocaiInfo();
-    });
-    bus.$on('getcUserInfo', (data) => {
-        this.getcUserInfo();
     });
     bus.$on('iskaipaning', (data) => {
         this.iskaipaning = data;

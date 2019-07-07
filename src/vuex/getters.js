@@ -21,8 +21,6 @@ const getters = {
   gethasError: state => state.hasError,
   gethasErrorMessage: state => state.hasErrorMessage,
   getheadTitle: state => state.headTitle,
-  getshowBack: state => state.showBack,
-  getshowMore: state => state.showMore,
   getshowAlert: state => state.showAlert
 }
 
