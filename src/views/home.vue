@@ -2,11 +2,11 @@
   <div id="home" style="height:100%;">
 
     <drawer
-    width="200px;"
+    width="5.333rem;"
     :show.sync="drawerVisibility"
     :show-mode="showModeValue"
     :placement="placement"
-    :drawer-style="{'background-color':'#35495e', width: '200px'}">
+    :drawer-style="{'background-color':'#35495e', width: '5.333rem'}">
 
       <!-- drawer content -->
       <div slot="drawer">
@@ -15,45 +15,8 @@
             <li style="padding-left:45px"><img slot="icon" :src="$route.path =='./../../static/img/shouye.png'"> 返回首页</li>
             <li v-for="(item,index) in bocaiTypeList" @click="getOdds(item,index)"><img :src="'./static/img/'+item.bocaiName+'.png'" width="20px">{{item.bocaiName}}</li>
           </ul>
-
-          <!-- <cell title="返回首页" link="/home/bocaiList" value="首页" @click.native="drawerVisibility = false">
-          </cell>
-          <cell title="Buy me a coffee" link="project/donate" @click.native="drawerVisibility = false">
-          </cell>
-          <cell title="Github" link="http://github.com/airyland/vux" value="Star me" @click.native="drawerVisibility = false">
-          </cell> -->
-
         </group>
       </div>
-
-
-      <!-- <div id="right_menu" class="vux-drawer-content drawer-right vux-drawer-active" style="background-color: rgb(53, 73, 94); width: 200px;">
-        <div>
-          <div class="martop20">
-            <div class="weui-cells__title">选择玩法</div>  
-            <div class="weui-cells"> 
-              <ul>
-                  <li onclick="$.game.showDetail();"><i class="layui-icon"></i> 未结注单</li>
-                  <li onclick="$.game.showResult();"><i class="layui-icon"></i> 开奖结果</li>
-                  <li onclick="$.game.showReport();"><i class="layui-icon"></i> 历史报表</li>
-                  <li onclick="$.game.showRule();"><i class="layui-icon"></i> 游戏规则</li>
-                  <li onclick="$.game.showXe();"><i class="layui-icon"></i> 游戏限额</li>
-                  <li><a href="/m/user" style="color:#000"><i class="layui-icon"></i> 会员中心</a></li>
-                  <li><a href="/m/recharge" style="color:#000"><i class="icon icon-11"></i> 在线充值</a></li>
-                  <li><a href="/m/withdraw" style="color:#000"><i class="icon icon-42"></i> 在线取款</a></li>
-              </ul>
-              <div class="weui-cell vux-tap-active weui-cell_access">
-                <div class="weui-cell__hd"></div> 
-                <div class="vux-cell-bd vux-cell-primary">
-                  <p><label class="vux-label">会员中心</label></p> 
-                  <span class="vux-label-desc"></span>
-                </div> 
-                <div class="weui-cell__ft">首页</div> 
-              </div> 
-            </div>
-          </div>
-        </div>
-      </div> -->
 
       <!-- main content -->
       <view-box ref="viewBox" :body-padding-top="isShowHeader ? '1.227rem' : '0'" body-padding-bottom="1.315rem">
@@ -94,7 +57,27 @@
 
     </drawer>
 
-    <div v-if="showRightMenu" v-clickoutside="closeRightMenu" id="right_menu" class="vux-drawer-content right_menu drawer-right" style="background-color: rgb(53, 73, 94); width: 200px;"><div data-v-7eb2bc79=""><div data-v-7eb2bc79="" class="martop20"><div class="weui-cells__title">会员中心</div>  <div class="weui-cells"> <div data-v-7eb2bc79="" class="weui-cell vux-tap-active weui-cell_access"><div class="weui-cell__hd"></div> <div class="vux-cell-bd vux-cell-primary"><p><label class="vux-label">返回首页</label> </p> <span class="vux-label-desc"></span></div> <div class="weui-cell__ft"> 首页</div> </div> <div data-v-7eb2bc79="" class="weui-cell vux-tap-active weui-cell_access"><div class="weui-cell__hd"></div> <div class="vux-cell-bd vux-cell-primary"><p><label class="vux-label">Buy me a coffee</label> </p> <span class="vux-label-desc"></span></div> <div class="weui-cell__ft"> </div> </div> <div data-v-7eb2bc79="" class="weui-cell vux-tap-active weui-cell_access"><div class="weui-cell__hd"></div> <div class="vux-cell-bd vux-cell-primary"><p><label class="vux-label">Github</label> </p> <span class="vux-label-desc"></span></div> <div class="weui-cell__ft"> Star me </div> </div></div> </div></div></div>
+    <!-- v-clickoutside="closeRightMenu" -->
+
+    <div id="right_menu" class="vux-drawer-content right_menu drawer-right" style="background-color: rgb(53, 73, 94); width: 5.333rem;">
+      <div>
+        <div>
+          <div class="weui-cells__title">会员中心</div>  
+          <div class="weui-cells"> 
+
+            <ul>
+              <li @click="goRightMenu('instantorder')">即时注单</li>
+              <li @click="goRightMenu('bettingHistory')">下注历史</li>
+              <li @click="goRightMenu('personalinfo')">个人资讯</li>
+              <li v-if="userInfo.cashCredit == 0" @click="goRightMenu('caiwumanager')">财务管理</li>
+              <li @click="goRightMenu('lotteryResults')">开奖结果</li>
+              <li @click="goRightMenu('gameRule')">游戏规则</li>
+            </ul>
+
+          </div> 
+        </div>
+      </div>
+    </div>
 
   </div>
 </template>
@@ -102,6 +85,23 @@
 <script>
 import { mapGetters } from 'vuex';
 import clickoutside from '../assets/js/clickoutside.js';
+
+$(document).ready(function() {
+  $(".drawer-mask").click(function() {
+    
+    console.log('closeRightMenureadyready');
+
+      if($('.vux-drawer-content.drawer-right').hasClass('vux-drawer-active')) {
+        $('.vux-drawer-content.drawer-right').removeClass('vux-drawer-active');
+
+        $('.vux-drawer-body').css({"transform":"translate3d(0px, 0px, 0px)"});
+
+        $('.drawer-mask.vux-drawer-active').removeClass('vux-drawer-active');
+
+      }
+
+  });
+});
 
 export default {
   data () {
@@ -123,7 +123,8 @@ export default {
       bocaiTypeList: 'getbocaiTypeList',
       isLoading: 'getisLoading',
       headTitle: 'getheadTitle',
-      bocaiName: 'getbocaiName'
+      bocaiName: 'getbocaiName',
+      userInfo: 'getuserInfo'
     }),
     isShowBar () {
       if (this.$route.path.indexOf('home') > -1) {
@@ -156,7 +157,23 @@ export default {
       }
     }
   },
+  mounted() {
+
+  },
+  created() {
+    this.getcUserInfo();
+  },
   methods: {
+    async getcUserInfo() {
+      let res = await this.$get(`${window.url}/api/cUserInfo`);
+
+      if(res.code===200){
+        store.commit('updateuserInfo',res.data);
+      }
+    },
+    goRightMenu(path) {
+      this.$router.push({name: path});
+    },
     clickBack() {
       console.log('clickBack');
       //this.placement = 'left';
@@ -164,32 +181,12 @@ export default {
     },
     clickRight() {
       console.log('clickRight');
-      // this.placement = 'right';
-      // this.drawerVisibility = true;
 
-      this.showRightMenu = true;
+      $('.vux-drawer-content.right_menu.drawer-right').addClass('vux-drawer-active');
 
-      $('.vux-drawer-content.drawer-right').addClass('vux-drawer-active');
-
-      $('.vux-drawer-body').css({"transform":"translate3d(-200px, 0px, 0px)"});
+      $('.vux-drawer-body').css({"transform":"translate3d(-5.333rem, 0px, 0px)"});
 
       $('.drawer-mask').addClass('vux-drawer-active');
-      // vux-drawer-content drawer-right
-    },
-    closeRightMenu() {
-      console.log('closeRightMenu');
-
-      if($('.vux-drawer-content.drawer-right').hasClass('vux-drawer-active')) {
-        $('.vux-drawer-content.drawer-right').removeClass('vux-drawer-active');
-
-        $('.vux-drawer-body').css({"transform":"translate3d(0px, 0px, 0px)"});
-
-        $('.drawer-mask').removeClass('vux-drawer-active');
-
-        this.showRightMenu = false;
-
-      }
-      
     },
     getOdds(ef,efs) {
       console.log('getOdds');
@@ -197,8 +194,6 @@ export default {
   },
   directives: {
     clickoutside
-  },
-  mounted () {
   },
   beforeDestroy () {
   },

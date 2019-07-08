@@ -42,7 +42,6 @@ export default {
 
     this.openPrizeTime = this.$timestampToTimeRi(new Date());
 
-    this.getcUserInfo();
 
     //只循环一个
     //this.getBocaiInfo5sOnce();
@@ -56,13 +55,6 @@ export default {
     }
   },
   methods: {
-    async getcUserInfo() {
-      let res = await this.$get(`${window.url}/api/cUserInfo`);
-
-      if(res.code===200){
-        store.commit('updateuserInfo',res.data);
-      }
-    },
     async getBocai() {
       let res = await this.$get(`${window.url}/api/getBocai`);
 
