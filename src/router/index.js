@@ -48,7 +48,6 @@ const router =  new Router({
           component: r => require.ensure([], () => r(require('@/views/home/changePassword')), 'changePassword'), meta: { requiresAuth: true }
         },
 
-
         { path: '/game/:id', name: 'game',
           meta: {                                
               requireAuth: true,

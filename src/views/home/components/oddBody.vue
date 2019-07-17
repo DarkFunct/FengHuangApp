@@ -3,13 +3,10 @@
     <div class="sublist">
       <div class="more" style="display:none"><i class="layui-icon" style="font-size:18px"></i></div>
       <div class="menu">
-        <button v-for="(item,index) in bocaiCategoryList" class="layui-btn layui-btn-mini layui-btn-radius layui-btn-normal" :class="'OddsCategory'+item.id"  @click="getOddsCategory(item)">{{item.name}}</button>
+        <button v-for="(item,index) in bocaiCategoryList" class="layui-btn layui-btn-mini layui-btn-radius" :class="'OddsCategory'+item.id"  @click="getOddsCategory(item)">{{item.name}}</button>
       </div>
 
-      <div class="sublist3" style="height: 30px;">
-        <div id="subMenu3">
-          <span v-for="(item,index) in oddsList" class="active" @click="getOddsListInfo(item)"><label>{{item.name}}</label></span>
-        </div>
+      <div class="sublist3">
       </div>
 
     </div>
@@ -25,13 +22,8 @@
             <li v-for="">
               <div class="hm">
                 <span class="t sschm">0</span>
-                <span class="rate">2.1</span>
-              </div>
-            </li>
-            <li>
-              <div class="hm">
-                <span class="t sschm">1</span>
-                <span class="rate">2.1</span>
+                <span v-if="isOpenOdds" class="rate">2.1</span>
+                <span v-else class="rate">封盘中</span>
               </div>
             </li>
           </ul>
@@ -60,7 +52,6 @@ export default {
       activeIndex: '',
       showOdds: '',
       submenu: '',
-      isOpenOdds: true,
       longhuhe_lmp: {},
       yiwuqiu_lmp: [],
       qianhousan_lmp: [],
@@ -92,6 +83,7 @@ export default {
         oddsList: 'getoddsList',
         orderList: 'getorderList',
         moneyOrder: 'getmoneyOrder',
+        isOpenOdds: 'getisOpenOdds'
       })
   },
   created() {
@@ -99,9 +91,6 @@ export default {
     this.getOddsCategory(this.bocaiCategory);
   },
   mounted(){
-      bus.$on('isOpenOdds', (data) => {
-        this.isOpenOdds = data;
-      });
   },
   methods: {
     getOddsListInfo(item) {

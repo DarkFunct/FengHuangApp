@@ -2,7 +2,7 @@
   <div>
 
     <div class="qs_panel balance">
-      可用余额：<span class="qs" id="balance">{{userInfo.cashBalance}}</span><i id="refresh_balance" class="layui-icon layui-anim layui-anim-loop">ဂ</i>
+      可用余额：<span class="qs" id="balance">{{userInfo.cashBalance}}</span><a @click="togetcUserInfo"><img slot="icon" :src="'./../../static/img/tongbu.png'"></a>
     </div>
 
     <div class="qs_panel">
@@ -126,6 +126,9 @@
       }
     },
 		methods: {
+      togetcUserInfo() {
+        bus.$emit('getcUserInfo','');
+      },
       getServerDate(){
           return new Date($.ajax({async: false}).getResponseHeader("Date"));
       },

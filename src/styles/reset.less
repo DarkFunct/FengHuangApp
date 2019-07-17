@@ -1869,6 +1869,20 @@ body .layui-util-face  .layui-layer-content{padding:0; background-color:#fff; co
     height: 30px;
     line-height: 30px;
   }
+
+  * {
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    -webkit-tap-highlight-color: transparent;
+    -webkit-appearance: none;
+  }
+  .sq_panel {
+    height: 40px;
+    line-height: 40px;
+    border-bottom: 1px solid #CCC;
+    background-color: #fff;
+    padding: 0px 10px 0px 10px;
+  }
+
   .sublist {
     width: 100%;
     oveflow: hidden;
@@ -1876,6 +1890,7 @@ body .layui-util-face  .layui-layer-content{padding:0; background-color:#fff; co
     margin-top: 10px;
     border-top: 1px solid #ccc;
   }
+
   .more {
     float: right;
     margin-top: 10px;
@@ -1892,6 +1907,15 @@ body .layui-util-face  .layui-layer-content{padding:0; background-color:#fff; co
     margin-right: 5px;
     margin-top: 5px;
   }
+
+
+  .layui-btn.layui-btn-mini {
+    background-color: #FF5722;
+  }
+  .layui-btn.layui-btn-mini.selected {
+    background-color: #1E9FFF;
+  }
+
   .sublist3 {
     width: 100%;
     oveflow: hidden;
@@ -1912,10 +1936,6 @@ body .layui-util-face  .layui-layer-content{padding:0; background-color:#fff; co
     width: 100%;
     overflow: hidden;
   }
-  .gamelist, .gameitem {
-    width: 100%;
-    overflow: hidden;
-  }
   .gameitem .header {
     background-color: #9ca9b0;
     overflow: hidden;
@@ -1925,18 +1945,11 @@ body .layui-util-face  .layui-layer-content{padding:0; background-color:#fff; co
     padding-left: 10px;
     padding-right: 10px;
   }
-
-  * {
-    -webkit-tap-highlight-color: rgba(0,0,0,0);
-    -webkit-tap-highlight-color: transparent;
-    -webkit-appearance: none;
-  }
   .game_body {
     overflow: hidden;
     padding: 5px;
     background-color: #fff;
   }
-
   .game_body li {
     float: left;
     overflow: hidden;
@@ -1947,8 +1960,7 @@ body .layui-util-face  .layui-layer-content{padding:0; background-color:#fff; co
     width: 90px;
     border-radius: 5px;
     border: 1px solid #ccc;
-    height: 30px;
-    line-height: 30px;
+    height: 36px;
     background-color: #eee;
     font-size: 12px;
   }
@@ -1973,11 +1985,13 @@ body .layui-util-face  .layui-layer-content{padding:0; background-color:#fff; co
     z-index: 9;
     overflow: hidden;
   }
+
   .pages>header, .pages>footer {
     transition: 0.25s ease-out;
     -webkit-transition: 0.25s ease-out;
     -webkit-transform: translate3d(0,0,0);
   }
+
   .bottom_btn {
     text-align: center;
   }

@@ -86,23 +86,6 @@
 import { mapGetters } from 'vuex';
 import clickoutside from '../assets/js/clickoutside.js';
 
-$(document).ready(function() {
-  $(".drawer-mask").click(function() {
-    
-    console.log('closeRightMenureadyready');
-
-      if($('.vux-drawer-content.drawer-right').hasClass('vux-drawer-active')) {
-        $('.vux-drawer-content.drawer-right').removeClass('vux-drawer-active');
-
-        $('.vux-drawer-body').css({"transform":"translate3d(0px, 0px, 0px)"});
-
-        $('.drawer-mask.vux-drawer-active').removeClass('vux-drawer-active');
-
-      }
-
-  });
-});
-
 export default {
   data () {
     return {
