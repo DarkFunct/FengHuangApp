@@ -21,7 +21,11 @@ const getters = {
   gethasError: state => state.hasError,
   gethasErrorMessage: state => state.hasErrorMessage,
   getheadTitle: state => state.headTitle,
-  getshowAlert: state => state.showAlert
+  getshowAlert: state => state.showAlert,
+  gethasResult: state => state.hasResult,
+  getiskaipaning: state => state.iskaipaning,
+  getisOpenOdds: state => state.isOpenOdds,
+  getorderDataList: state => state.orderDataList
 }
 
 export default getters

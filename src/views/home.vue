@@ -162,8 +162,17 @@ export default {
   },
   created() {
     this.getcUserInfo();
+    this.gotobocai();
   },
   methods: {
+    async gotobocai() {
+      let res = await this.$get(`${window.url}/api/getBocai`);
+          if(res.code===200){
+
+            store.commit('updatebocaiTypeList',res.bocaiTypeList);
+
+          }
+    },
     async getcUserInfo() {
       let res = await this.$get(`${window.url}/api/cUserInfo`);
 

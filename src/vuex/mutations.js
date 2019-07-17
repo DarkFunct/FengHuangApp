@@ -67,6 +67,18 @@ const mutations = {
   },
   updateshowAlert(state,v) {
     state.showAlert = v;
+  },
+  updatehasResult(state,v) {
+    state.hasResult = v;
+  },
+  updateiskaipaning(state,v) {
+    state.iskaipaning = v;
+  },
+  updateisOpenOdds(state,v) {
+    state.isOpenOdds = v;
+  },
+  updateorderDataList(state,v) {
+    state.orderDataList = v;
   }
 }
 

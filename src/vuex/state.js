@@ -19,7 +19,11 @@ const state = {
   orderOddsVisible: false,
   moneyOrder: '',
   headTitle: '凤凰',
-  showAlert: {show:false,title:'',text:''}
+  showAlert: {show:false,title:'',text:''},
+  hasResult: false,
+  iskaipaning: true,
+  isOpenOdds: true,
+  orderDataList: []
 }
 
 export default state
