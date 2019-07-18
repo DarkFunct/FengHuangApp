@@ -3,7 +3,7 @@
     <div class="sublist">
       <div class="more" style="display:none"><i class="layui-icon" style="font-size:18px"></i></div>
       <div class="menu">
-        <button v-for="(item,index) in bocaiCategoryList" class="layui-btn layui-btn-mini layui-btn-radius" :class="'OddsCategory'+item.id"  @click="getOddsCategory(item)">{{item.name}}</button>
+        <button v-for="(item,index) in bocaiCategoryList" class="layui-btn layui-btn-mini layui-btn-radius" :class="['OddsCategory'+item.id,index==0?'selected':'']"  @click="getOddsCategory(item)">{{item.name}}</button>
       </div>
 
       <div class="sublist3">
@@ -12,23 +12,26 @@
     </div>
 
     <div class="gamelist">
-      <div class="gameitem">
+
+      <div class="gameitem" v-for="(itemPa,indexPa) in oddsList">
         <div class="header">
           <i class="layui-icon"></i>
-          <span class="t">{{submenu}}</span>
+          <span class="t">{{itemPa.name}}</span>
         </div>
         <div class="game_body">
           <ul>
-            <li v-for="">
+            <li v-for="(item,index) in itemPa.list">
               <div class="hm">
-                <span class="t sschm">0</span>
-                <span v-if="isOpenOdds" class="rate">2.1</span>
+                <span class="t sschm">{{item.oddsName}}</span>
+                <span v-if="isOpenOdds" class="rate">{{item.odds}}</span>
                 <span v-else class="rate">封盘中</span>
               </div>
             </li>
           </ul>
         </div>
       </div>
+
+
     </div>
 
   </div>
@@ -88,9 +91,12 @@ export default {
   },
   created() {
     //获取菠菜数据
-    this.getOddsCategory(this.bocaiCategory);
+    //this.getOddsCategory(this.bocaiCategoryList[0]);
   },
   mounted(){
+    bus.$on('getOddsCategory', (data) => {
+        this.getOddsCategory(data);
+    });
   },
   methods: {
     getOddsListInfo(item) {
@@ -241,9 +247,6 @@ export default {
         
       }
       
-    },
-    handleSelect(key, keyPath) {
-        //console.log(key, keyPath);
     },
     async resetOddsCategory(item) {
 

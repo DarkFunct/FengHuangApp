@@ -2,7 +2,7 @@
   <footer>
     <div class="bottom_btn layui-form">
       <button class="layui-btn layui-btn-normal" id="clearBtn">清空</button>
-      <button class="layui-btn layui-btn-danger" id="OrderBtn">投注<span id="selCount" class="layui-badge layui-bg-blue">{{orderDataList.lenght}}</span></button>
+      <button class="layui-btn layui-btn-danger" id="OrderBtn">投注<span id="selCount" class="layui-badge layui-bg-blue">{{orderDataList.lenght?orderDataList.lenght:0}}</span></button>
     </div>
   </footer>
 </template>

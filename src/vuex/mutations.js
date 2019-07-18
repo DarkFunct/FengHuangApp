@@ -62,9 +62,6 @@ const mutations = {
   updatehasErrorMessage(state,v) {
     state.hasErrorMessage = v;
   },
-  updateheadTitle(state,v) {
-    state.headTitle = v;
-  },
   updateshowAlert(state,v) {
     state.showAlert = v;
   },
@@ -79,6 +76,9 @@ const mutations = {
   },
   updateorderDataList(state,v) {
     state.orderDataList = v;
+  },
+  updatebocaiCategoryList(state,v) {
+    state.bocaiCategoryList = v;
   }
 }
 

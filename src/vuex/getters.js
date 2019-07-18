@@ -20,12 +20,12 @@ const getters = {
   getmoneyOrder: state => state.moneyOrder,
   gethasError: state => state.hasError,
   gethasErrorMessage: state => state.hasErrorMessage,
-  getheadTitle: state => state.headTitle,
   getshowAlert: state => state.showAlert,
   gethasResult: state => state.hasResult,
   getiskaipaning: state => state.iskaipaning,
   getisOpenOdds: state => state.isOpenOdds,
-  getorderDataList: state => state.orderDataList
+  getorderDataList: state => state.orderDataList,
+  getbocaiCategoryList: state => state.bocaiCategoryList
 }
 
 export default getters

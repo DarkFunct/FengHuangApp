@@ -12,8 +12,8 @@
       <div slot="drawer">
         <group title="选择玩法">
           <ul>
-            <li style="padding-left:45px"><img slot="icon" :src="$route.path =='./../../static/img/shouye.png'"> 返回首页</li>
-            <li v-for="(item,index) in bocaiTypeList" @click="getOdds(item,index)"><img :src="'./static/img/'+item.bocaiName+'.png'" width="20px">{{item.bocaiName}}</li>
+            <li style="padding-left:45px" @click="goHome()">返回首页</li>
+            <li v-for="(item,index) in bocaiTypeList" @click="getOdds(item)"><img :src="'./static/img/'+item.bocaiName+'.png'" width="20px">{{item.bocaiName}}</li>
           </ul>
         </group>
       </div>
@@ -105,7 +105,6 @@ export default {
     ...mapGetters({
       bocaiTypeList: 'getbocaiTypeList',
       isLoading: 'getisLoading',
-      headTitle: 'getheadTitle',
       bocaiName: 'getbocaiName',
       userInfo: 'getuserInfo'
     }),
@@ -138,16 +137,29 @@ export default {
       } else {
         return false
       }
+    },
+    headTitle() {
+      if (this.$route.path.indexOf('game') > -1) {
+        return ''
+      } else {
+        return '凤凰'
+      }
     }
   },
   mounted() {
-
+    bus.$on('togetOdds', (data) => {
+        this.getOdds(data);
+    });
   },
   created() {
     this.getcUserInfo();
     this.gotobocai();
   },
   methods: {
+    goHome() {
+      this.$router.push({name: 'bocaiList'});
+      this.drawerVisibility = false;
+    },
     async gotobocai() {
       let res = await this.$get(`${window.url}/api/getBocai`);
           if(res.code===200){
@@ -165,6 +177,17 @@ export default {
     },
     goRightMenu(path) {
       this.$router.push({name: path});
+      this.drawerVisibility = false;
+
+      if($('.vux-drawer-content.drawer-right').hasClass('vux-drawer-active')) {
+        $('.vux-drawer-content.drawer-right').removeClass('vux-drawer-active');
+
+        $('.vux-drawer-body').css({"transform":"translate3d(0px, 0px, 0px)"});
+
+        $('.drawer-mask.vux-drawer-active').removeClass('vux-drawer-active');
+
+      }
+      
     },
     clickBack() {
       console.log('clickBack');
@@ -180,8 +203,27 @@ export default {
 
       $('.drawer-mask').addClass('vux-drawer-active');
     },
-    getOdds(ef,efs) {
-      console.log('getOdds');
+    async getOdds(item) {
+
+
+      if(['重庆时时彩','极速时时彩','广东快乐十分','极速赛车','幸运飞艇','北京赛车','江苏快3'].findIndex((n) => n==item.bocaiName)>-1) {
+
+        store.commit('updatebocaiTypeId',item.bocaiId);
+
+        store.commit('updatebocaiName',item.bocaiName);
+
+        this.$router.push({path: '/game/'+item.bocaiId});
+
+        bus.$emit('togetOddsInfo','');
+
+        this.drawerVisibility = false;
+
+      } else {
+
+        this.$toast('此菠菜未完成，请等待！');
+
+      }
+
     }
   },
   directives: {

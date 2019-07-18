@@ -107,7 +107,6 @@ export default {
                     store.commit('updatehasResult',true);
                   }
 
-                  console.log('this.preResult',this.preResult);
                 } else {
                   bus.$emit('iskaipaning', false);
                   store.commit('updatehasResult',false);
@@ -143,7 +142,6 @@ export default {
                     store.commit('updatehasResult',true);
                   }
 
-                  console.log('this.preResult',this.preResult);
                 } else {
                   bus.$emit('iskaipaning', false);
                   store.commit('updatehasResult',false);
@@ -206,6 +204,8 @@ export default {
 
       store.commit('updatebocaiTypeId', this.pathBocaiId);
 
+      console.log('this.pathBocaiId',this.pathBocaiId);
+
       this.getOddsInfo();
 
     },
@@ -224,7 +224,7 @@ export default {
 
                 that.bocaiCategoryList = result.bocaiCategoryList;
 
-                store.commit('updatebocaiCategory',result.bocaiCategoryList[0]);
+                bus.$emit('getOddsCategory',result.bocaiCategoryList[0]);
 
                 //获取菠菜信息
                 this.bocaiInfo();
@@ -238,6 +238,11 @@ export default {
   mounted() {
     bus.$on('getbocaiInfo', (data) => {
         this.bocaiInfo();
+    });
+    bus.$on('togetOddsInfo', (data) => {
+      console.log('getOddsInfo');
+
+        this.getOddsInfo();
     });
   },
   updated() {

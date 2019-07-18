@@ -18,12 +18,12 @@ const state = {
   orderList: [],
   orderOddsVisible: false,
   moneyOrder: '',
-  headTitle: '凤凰',
   showAlert: {show:false,title:'',text:''},
   hasResult: false,
   iskaipaning: true,
   isOpenOdds: true,
-  orderDataList: []
+  orderDataList: [],
+  bocaiCategoryList: []
 }
 
 export default state
