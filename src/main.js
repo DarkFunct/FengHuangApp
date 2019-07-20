@@ -24,7 +24,7 @@ import request from './assets/js/request.js';
 Vue.use(request);
 
 import { Group,Cell,Loading,XInput,XButton,Alert,Datetime,XHeader,Flexbox, FlexboxItem,TransferDom,Toast,Drawer,
-	ViewBox,Tabbar,TabbarItem } from 'vux'
+	ViewBox,Tabbar,TabbarItem ,Icon} from 'vux'
 
 Vue.component('x-input', XInput)
 Vue.component('loading', Loading)
@@ -41,6 +41,7 @@ Vue.component('drawer', Drawer)
 Vue.component('view-box', ViewBox)
 Vue.component('tabbar', Tabbar)
 Vue.component('tabbar-item', TabbarItem)
+Vue.component('icon', Icon)
 
 Vue.directive('transfer-dom', TransferDom)
 

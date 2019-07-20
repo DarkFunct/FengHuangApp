@@ -121,7 +121,7 @@ export default {
 
     },
     async getBocaiInfo5sOnce() { 
-      //console.log('5秒调一次','this.preResult',this.preResult,'this.iskaipaning',this.iskaipaning);
+      console.log('5秒调一次','this.preResult');
 
        if(!this.hasResult && this.iskaipaning) {
 
