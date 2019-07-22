@@ -71,7 +71,7 @@
               <li @click="goRightMenu('personalinfo')">个人资讯</li>
               <li v-if="userInfo.cashCredit == 0" @click="goRightMenu('caiwumanager')">财务管理</li>
               <li @click="goRightMenu('lotteryResults')">开奖结果</li>
-              <li @click="goRightMenu('gameRule')">游戏规则</li>
+              <li @click="goRightMenu('rules')">游戏规则</li>
             </ul>
 
           </div> 
@@ -141,6 +141,8 @@ export default {
     headTitle() {
       if (this.$route.path.indexOf('game') > -1) {
         return ''
+      } else if(this.$route.name == 'rules') {
+        return '游戏规则'
       } else {
         return '凤凰'
       }

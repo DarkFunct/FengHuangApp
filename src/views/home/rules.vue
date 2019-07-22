@@ -1,13 +1,8 @@
 <template>
-  <div class="content-main">
-    <div class="right">
-      <div id="submenuDiv">
-        <div class="box">
-
-          <div class="default-list">
-
-            <div class="statement">
-              <h2>重要声明</h2> 
+  <div class="body" style="bottom:0;">
+    <div class="rule">
+      <div class="statement">
+              <h2>重要声明--<span>{{bocaiName}}</span></h2> 
               <p>1.如果客户怀疑自己的资料被盗用，应立即通知本公司，并更改详细数据，以前的使用者名称及密码将全部无效。</p> 
               <p>2.客户有责任确保自己的账户及登入资料的保密性。以使用者名称及密码进行的任何网上投注将被视为有效。</p> 
               <p>3.公布赔率时出现的任何打字错误或非故意人为失误，本公司保留改正错误和按正确赔率结算投注的权力。您居住所在地的法律有可能规定网络博弈不合法；若此情况属实，本公司将不会批准您使用付账卡进行交易。</p> 
@@ -76,17 +71,10 @@
 
         <div v-if="bocaiName == '安徽快3'"><div><h2>安徽快3规则说明</h2> <p>该游戏的投注时间、开奖时间和开奖号码与“安徽快3”完全同步，北京时间（GMT+8）从每天上午 08:40:00开到晚上 22:00:00；每隔20分钟开一次奖,每天开奖40期。</p></div> <div><h3>具体游戏规则如下：</h3> <div><p>骰宝</p> <p class="red" style="line-height: 20px;">一、博彩者可在下列各瓣下注：</p> <p class="text-indent"><span class="red">1.小：</span>三粒骰子之点数总和由4点至10点；</p> <p class="text-indent"><span class="red">2.大：</span>三粒骰子之点数总和由11点至17点；注：若三粒骰子平面点数相同，通吃「大」、「小」各注。</p> <p class="text-indent"><span class="red">3.三军/鱼虾蟹：</span>任何一粒骰子出现选定之平面点数；</p> <p class="text-indent"><span class="red">4.围骰：</span>三粒骰子平面与选定点数相同；</p> <p class="text-indent"><span class="red">5.全骰：</span>在一点至六点内，三粒骰子平面点数相同；</p> <p class="text-indent"><span class="red">6.点数：</span>由4点至17点，三粒骰子平面点数之总和；</p> <p class="text-indent"><span class="red">7.长牌：</span>任两粒骰子之平面点数；</p> <p class="text-indent"><span class="red">8.短牌：</span>选定两粒骰子之平面点数；</p></div></div></div>
 
-        <div v-if="bocaiName == '极速赛车'"><div><h2>极速赛车规则说明</h2> <p>该游戏每天24小时开奖，每1分钟开一次奖,每天开奖1440期。</p></div> <div><h3>具体游戏规则如下：</h3> <div><p><span class="red">1～10 两面：</span>指 单、双；大、小。</p> <p class="text-indent"><span class="red">单、双：</span>号码为双数叫双，如4、8；号码为单数叫单，如5、9。</p> <p class="text-indent"><span class="red">大、小：</span>开出之号码大于或等于6为大，小于或等于5为小。</p> <p class="text-indent"><span class="red">第一名～第十名 车号指定：</span>每一个车号为一投注组合，开奖结果“投注车号”对应所投名次视为中奖，其余情形视为不中奖。</p> <p><span class="red">1～5龙虎</span></p> <p class="text-indent"><span class="red">冠  军 龙/虎：</span>“第一名”车号大于“第十名”车号视为【龙】中奖、反之小于视为【虎】中奖，其余情形视为不中奖。</p> <p class="text-indent"><span class="red">亚  军 龙/虎：</span>“第二名”车号大于“第九名”车号视为【龙】中奖、反之小于视为【虎】中奖，其余情形视为不中奖。</p> <p class="text-indent"><span class="red">第三名 龙/虎：</span>“第三名”车号大于“第八名”车号视为【龙】中奖、反之小于视为【虎】中奖，其余情形视为不中奖。</p> <p class="text-indent"><span class="red">第四名 龙/虎：</span>“第四名”车号大于“第七名”车号视为【龙】中奖、反之小于视为【虎】中奖，其余情形视为不中奖。</p> <p class="text-indent"><span class="red">第五名 龙/虎：</span>“第五名”车号大于“第六名”车号视为【龙】中奖、反之小于视为【虎】中奖，其余情形视为不中奖。</p> <p><span class="red">冠军车号＋亚军车号＝冠亚和值（为3~19)</span></p><p class="text-indent"><span class="red">冠亚和单双：</span>“冠亚和值”为单视为投注“单”的注单视为中奖，为双视为投注“双”的注单视为中奖，其余视为不中奖。</p> <p class="text-indent"><span class="red">冠亚和大小：</span>“冠亚和值”大于11时投注“大”的注单视为中奖，小于或等于11时投注“小”的注单视为中奖，其余视为不中奖。</p> <p class="text-indent"><span class="red">冠亚和指定：</span>“冠亚和值”可能出现的结果为3～19， 投中对应“冠亚和值”数字的视为中奖，其余视为不中奖。</p></div></div></div>
-
-<!-- 13: {id: null, userId: 5, bocaiId: 9057, bocaiName: "极速赛车", minimumBet: null, highestPayout: null,…} -->
-
-            
-
-          </div>
-
-        </div>
+        <div v-if="bocaiName == '极速赛车'"><div><h2>极速赛车规则说明</h2> <p>该游戏每天24小时开奖，每1分钟开一次奖,每天开奖1440期。</p></div> <div><h3>具体游戏规则如下：</h3> <div><p><span class="red">1～10 两面：</span>指 单、双；大、小。</p> <p class="text-indent"><span class="red">单、双：</span>号码为双数叫双，如4、8；号码为单数叫单，如5、9。</p> <p class="text-indent"><span class="red">大、小：</span>开出之号码大于或等于6为大，小于或等于5为小。</p> <p class="text-indent"><span class="red">第一名～第十名 车号指定：</span>每一个车号为一投注组合，开奖结果“投注车号”对应所投名次视为中奖，其余情形视为不中奖。</p> <p><span class="red">1～5龙虎</span></p> <p class="text-indent"><span class="red">冠  军 龙/虎：</span>“第一名”车号大于“第十名”车号视为【龙】中奖、反之小于视为【虎】中奖，其余情形视为不中奖。</p> <p class="text-indent"><span class="red">亚  军 龙/虎：</span>“第二名”车号大于“第九名”车号视为【龙】中奖、反之小于视为【虎】中奖，其余情形视为不中奖。</p> <p class="text-indent"><span class="red">第三名 龙/虎：</span>“第三名”车号大于“第八名”车号视为【龙】中奖、反之小于视为【虎】中奖，其余情形视为不中奖。</p> <p class="text-indent"><span class="red">第四名 龙/虎：</span>“第四名”车号大于“第七名”车号视为【龙】中奖、反之小于视为【虎】中奖，其余情形视为不中奖。</p> <p class="text-indent"><span class="red">第五名 龙/虎：</span>“第五名”车号大于“第六名”车号视为【龙】中奖、反之小于视为【虎】中奖，其余情形视为不中奖。</p> <p><span class="red">冠军车号＋亚军车号＝冠亚和值（为3~19)</span></p><p class="text-indent"><span class="red">冠亚和单双：</span>“冠亚和值”为单视为投注“单”的注单视为中奖，为双视为投注“双”的注单视为中奖，其余视为不中奖。</p> <p class="text-indent"><span class="red">冠亚和大小：</span>“冠亚和值”大于11时投注“大”的注单视为中奖，小于或等于11时投注“小”的注单视为中奖，其余视为不中奖。</p> <p class="text-indent"><span class="red">冠亚和指定：</span>“冠亚和值”可能出现的结果为3～19， 投中对应“冠亚和值”数字的视为中奖，其余视为不中奖。</p></div></div>
       </div>
     </div>
+
   </div>
 </template>
 
@@ -127,7 +115,11 @@ export default {
 .text-indent {
     text-indent: 2em;
 }
-
+h1, h2, h3 {
+    font-size: 0.373rem;
+    font-weight: 400;
+    font-weight: bold;
+}
 </style>
 <style lang="less">
   

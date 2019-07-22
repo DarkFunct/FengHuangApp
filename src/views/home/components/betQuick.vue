@@ -445,6 +445,9 @@
 .menuBtnR {
   background-color: #FF5722;
 }
+.layui-badge.layui-bg-blue {
+  margin-left: 10px;
+}
 </style>
 
 
