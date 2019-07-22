@@ -1,10 +1,10 @@
 <template>
   <div class="weui-tabbar vux-demo-tabbar">
     <a href="javascript:;" class="weui-tabbar__item">
-      <p class="weui-tabbar__label menuBtnL"><span>清  空</span></p>
+      <p class="weui-tabbar__label menuBtnL"><span>清 空</span></p>
     </a> 
     <a href="javascript:;" class="weui-tabbar__item weui-bar__item_on">
-      <p class="weui-tabbar__label menuBtnR"><span>投  注</span><span id="selCount" class="layui-badge layui-bg-blue">{{orderDataList.lenght?orderDataList.lenght:0}}</span></p>
+      <p class="weui-tabbar__label menuBtnR"><span>投 注</span><span id="selCount" class="layui-badge layui-bg-blue">{{orderDataList.lenght?orderDataList.lenght:0}}</span></p>
     </a>
   </div>
 
