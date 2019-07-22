@@ -3,7 +3,7 @@
     <div class="layui-row layui-col-space10" v-for="(itemPa,indexPa) in bocaiTypeListTemp">
       <div class="layui-col-xs4" v-for="(item,index) in itemPa">
         <div>
-          <a @click="getOdds(item)"><img :src="'./static/img/'+item.bocaiName+'.png'" width="70px" height="70px"><br><span>{{item.bocaiName}}</span></a>
+          <a @click="getOdds(item)"><img :src="'../../../static/img/'+item.bocaiName+'.png'" width="70px" height="70px"><br><span>{{item.bocaiName}}</span></a>
           <p><span class="time">00:29</span></p>
         </div>
       </div>
