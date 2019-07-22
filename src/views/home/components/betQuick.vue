@@ -1,10 +1,19 @@
 <template>
-  <footer>
+  <div class="weui-tabbar vux-demo-tabbar">
+    <a href="javascript:;" class="weui-tabbar__item">
+      <p class="weui-tabbar__label menuBtnL"><span>清  空</span></p>
+    </a> 
+    <a href="javascript:;" class="weui-tabbar__item weui-bar__item_on">
+      <p class="weui-tabbar__label menuBtnR"><span>投  注</span><span id="selCount" class="layui-badge layui-bg-blue">{{orderDataList.lenght?orderDataList.lenght:0}}</span></p>
+    </a>
+  </div>
+
+  <!-- <footer>
     <div class="bottom_btn layui-form">
       <button class="layui-btn layui-btn-normal" id="clearBtn">清空</button>
       <button class="layui-btn layui-btn-danger" id="OrderBtn">投注<span id="selCount" class="layui-badge layui-bg-blue">{{orderDataList.lenght?orderDataList.lenght:0}}</span></button>
     </div>
-  </footer>
+  </footer> -->
 </template>
 
 
@@ -420,8 +429,24 @@
 </script>
 
 <style scoped>
-
+.weui-tabbar__item {
+    padding: 0; 
+}
+.weui-tabbar__label {
+    text-align: center;
+    color: #fff !important;
+    font-size: 14px;
+    line-height: 48px;
+    height: 48px;
+}
+.menuBtnL {
+  background-color: #1E9FFF;
+}
+.menuBtnR {
+  background-color: #FF5722;
+}
 </style>
+
 
 <style lang="less">
 </style>

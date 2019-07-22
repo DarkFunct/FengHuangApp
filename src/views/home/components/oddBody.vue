@@ -22,7 +22,7 @@
           <ul>
             <li v-for="(item,index) in itemPa.list">
               <div class="hm">
-                <span class="t sschm">{{item.oddsName}}</span>
+                <span class="t" :class="(['二字','一字','三字'].findIndex((n) => n == bocaiCategory.name)>-1)? 'sschm': itemPa.name">{{item.oddsName}}</span>
                 <span v-if="isOpenOdds" class="rate">{{item.odds}}</span>
                 <span v-else class="rate">封盘中</span>
               </div>
