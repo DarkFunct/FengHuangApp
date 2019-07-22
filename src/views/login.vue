@@ -100,11 +100,11 @@ export default {
           password: this.password
         };
 
-        stroe.commit('updateisLoading',true);
+        store.commit('updateisLoading',true);
 
         await that.$post(`${window.url}/api/login`,obj).then((res) => {
           that.$handelResponse(res, (result) => {
-            stroe.commit('updateisLoading',false);
+            store.commit('updateisLoading',false);
 
             if(result.code === 200) {
               cookieParser.setCookie("accesstoken", result.token);
