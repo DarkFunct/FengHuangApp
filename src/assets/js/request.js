@@ -31,6 +31,10 @@ export default {
                 //this.$success(res.data.msg);
             } else if(res.data.code == 444) {
                 //消息为空，但不需要提示
+            } else if(res.data.code == 500) {
+                //token失效
+                this.$toast('登录信息失效，请重新登录!');
+                this.$router.push({name: 'login'});
             } else {
                 console.log(res.data.msg);
                 this.$toast(res.data.msg);
@@ -115,6 +119,12 @@ export default {
 
             if (res.data.code == 200) {
                 //this.$success(res.data.msg);
+            } else if(res.data.code == 444) {
+                //消息为空，但不需要提示
+            } else if(res.data.code == 500) {
+                //token失效
+                this.$toast('登录信息失效，请重新登录!');
+                this.$router.push({name: 'login'});
             } else {
                 console.log(res.data.msg);
                 this.$toast(res.data.msg);
