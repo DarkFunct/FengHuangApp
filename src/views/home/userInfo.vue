@@ -3,7 +3,7 @@
     <nav class="header content">
       <a class="ui user header"><p><label>账   户：</label><span>{{userInfo.username}}</span>({{userInfo.handicap}}盘)</p> 
         <div class="sub header">现金余额:<span>{{userInfo.cashBalance}}</span>元
-          <a @click="getcUserInfo"><img slot="icon" :src="'./../../static/img/tongbu.png'"></a>
+          <a @click="getcUserInfo"><img slot="icon" :src="require('@/assets/img/tongbu.png')"></a>
         </div>
         <div class="sub header">锁定金额：<span style="color: #999999;">{{userInfo.lockBalance}}</span>元
         </div>

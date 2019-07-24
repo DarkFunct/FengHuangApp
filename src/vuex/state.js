@@ -23,7 +23,8 @@ const state = {
   iskaipaning: true,
   isOpenOdds: true,
   orderDataList: [],
-  bocaiCategoryList: []
+  bocaiCategoryList: [],
+  completeOddList: [1,8555,8806,8811,8374,8813,8223,8498,8266,9057,8815,8808]
 }
 
 export default state

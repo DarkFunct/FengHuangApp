@@ -79,6 +79,9 @@ const mutations = {
   },
   updatebocaiCategoryList(state,v) {
     state.bocaiCategoryList = v;
+  },
+  updatecompleteOddList(state,v) {
+    state.completeOddList = v;
   }
 }
 

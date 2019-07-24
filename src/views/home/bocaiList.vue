@@ -3,7 +3,7 @@
     <div class="layui-row layui-col-space10" v-for="(itemPa,indexPa) in bocaiTypeListTemp">
       <div class="layui-col-xs4" v-for="(item,index) in itemPa">
         <div>
-          <a @click="getOdds(item)"><img :src="'../../../static/img/'+item.bocaiName+'.png'" width="70px" height="70px"><br><span>{{item.bocaiName}}</span></a>
+          <a @click="getOdds(item)"><img :src="require('@/assets/img/icon'+item.bocaiId+'.png')" width="70px" height="70px"><br><span>{{item.bocaiName}}</span></a>
           <p><span class="time">00:29</span></p>
         </div>
       </div>
@@ -20,16 +20,26 @@ export default {
   },
   data() {
     return {
+      admin: {
+        avatar: './static/img/六合彩.png'
+      }
     }
   },
   async created() {
   },
   computed: {
     ...mapGetters({
-      bocaiTypeList: 'getbocaiTypeList'
+      bocaiTypeList: 'getbocaiTypeList',
+      completeOddList: 'getcompleteOddList'
     }),
     bocaiTypeListTemp() {
-      return _.chunk(this.bocaiTypeList,3) || [];
+      let arr = [];
+      for(let x in this.bocaiTypeList) {
+        if(this.completeOddList.findIndex((n) => n==this.bocaiTypeList[x].bocaiId)>-1) {
+          arr.push(this.bocaiTypeList[x]);
+        }
+      }
+      return _.chunk(arr,3) || [];
     }
   },
   methods: {

@@ -2,7 +2,7 @@
   <div>
 
     <div class="qs_panel balance">
-      可用余额：<span class="qs" id="balance">{{userInfo.cashBalance}}</span><a @click="togetcUserInfo"><img slot="icon" :src="'./../../static/img/tongbu.png'"></a>
+      可用余额：<span class="qs" id="balance">{{userInfo.cashBalance}}</span><a @click="togetcUserInfo"><img slot="icon" :src="require('@/assets/img/tongbu.png')"></a>
     </div>
 
     <div class="qs_panel">

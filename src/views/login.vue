@@ -1,6 +1,6 @@
 <template>
 
-  <div class="login_con">
+  <!-- <div class="login_con">
             <span class="welcome">欢迎登陆</span>
             <br>
             <img src="./../../static/img/shouye.png" class="user">
@@ -15,23 +15,26 @@
               <button type="button"  class="denglu">登录</button>
               <button type="button" class="zhuce">注册</button>
             </div>
-  </div>
+  </div> -->
 
-  <!-- <div>
+  <div>
     <group title="登录">
       <x-input title="帐号:" v-model="username" placeholder="请输入帐号"></x-input>
       <x-input title="密码:" v-model="password" type="password" placeholder="请输入登录密码"></x-input>
+      <!-- <input type="text" placeholder="请输入验证码" class="yanzhengma">
+      <img :src="'data:image/png;base64,'+tupian" style="margin-left: 20px;margin-top: 26px;"> -->
+
       <x-input title="验证码:" v-model="yzma" placeholder="请输入验证码">
         <img class="yanzhengimg" slot="right-full-height" @click="getyanzheng" :src="'data:image/png;base64,'+tupian">
       </x-input>
-         <img class="yanzhengimg" @click="getyanzheng" :src="'data:image/png;base64,'+tupian">
+        <!--  <img class="yanzhengimg" @click="getyanzheng" :src="'data:image/png;base64,'+tupian"> -->
     </group>
 
     <div style="padding:15px;">
       <x-button @click.native="login" type="primary">登  录</x-button>
     </div>
 
-  </div> -->
+  </div>
 </template>
 
 
@@ -63,7 +66,7 @@ export default {
     if (window.ENV == 'dev') {
       //console.log('研发自动登录');
 
-      //this.logindev();
+      this.logindev();
 
     } else {
       //普通用户登录

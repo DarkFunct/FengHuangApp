@@ -8,17 +8,17 @@
     :placement="placement"
     :drawer-style="{'background-color':'#35495e', width: '5.333rem'}">
 
-      <!-- drawer content -->
       <div slot="drawer">
         <group title="选择玩法">
           <ul>
             <li style="padding-left:45px" @click="goHome()">返回首页</li>
-            <li v-for="(item,index) in bocaiTypeList" @click="getOdds(item)"><img :src="'./static/img/'+item.bocaiName+'.png'" width="20px">{{item.bocaiName}}</li>
+            <li v-for="(item,index) in bocaiTypeList" @click="getOdds(item)" v-if="completeOddList.findIndex((n) => n==item.bocaiId)>-1">
+              <img :src="require('@/assets/img/icon'+item.bocaiId+'.png')" width="20px">{{item.bocaiName}}
+            </li>
           </ul>
         </group>
       </div>
 
-      <!-- main content -->
       <view-box ref="viewBox" :body-padding-top="isShowHeader ? '1.227rem' : '0'" body-padding-bottom="1.315rem">
 
         <x-header
@@ -34,7 +34,6 @@
           </span>
         </x-header>
 
-        <!-- remember to import BusPlugin in main.js if you use components: x-img and sticky -->
         <transition>
 
           <router-view class="router-view"></router-view>
@@ -43,11 +42,11 @@
 
         <tabbar class="vux-demo-tabbar" icon-class="vux-center" v-if="isShowBar" slot="bottom">
           <tabbar-item link="/home/bocaiList" :class="$route.path == '/home/bocaiList' ? 'selected':''">
-            <img slot="icon" :src="$route.path == '/home/bocaiList' ? './../../static/img/shouye-selected.png':'./../../static/img/shouye.png'">
+            <img slot="icon" :src="$route.path == '/home/bocaiList' ? require('@/assets/img/shouye-selected.png') : require('@/assets/img/shouye.png')">
             <span slot="label">首页</span>
           </tabbar-item>
           <tabbar-item link="/home/userInfo" :class="$route.path == '/home/userInfo' ? 'selected':''">
-            <img slot="icon" :src="$route.path == '/home/userInfo' ? './../../static/img/wode-selected.png':'./../../static/img/wode.png'">
+            <img slot="icon" :src="$route.path == '/home/userInfo' ? require('@/assets/img/wode-selected.png') : require('@/assets/img/wode.png')">
             <span slot="label">我的</span>
           </tabbar-item>
         </tabbar>
@@ -96,7 +95,12 @@ export default {
       path: '',
 
       placement: 'left',
-      showRightMenu: false
+      showRightMenu: false,
+
+
+      icons:[
+            require('@/assets/img/icon1.png'),
+          ],
     }
   },
   components: {
@@ -106,7 +110,8 @@ export default {
       bocaiTypeList: 'getbocaiTypeList',
       isLoading: 'getisLoading',
       bocaiName: 'getbocaiName',
-      userInfo: 'getuserInfo'
+      userInfo: 'getuserInfo',
+      completeOddList: 'getcompleteOddList'
     }),
     isShowBar () {
       if (this.$route.path.indexOf('home') > -1) {
