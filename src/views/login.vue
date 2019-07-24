@@ -18,21 +18,63 @@
   </div> -->
 
   <div>
-    <group title="登录">
+    <x-header :left-options="{showBack: false}">凤凰</x-header>
+
+    <divider>{{'会员登录'}}</divider>
+
+    <div class="ui login form" id="loginBox">
+      <div class="field">
+        <label>账号</label>
+        <input type="text" name="username" placeholder="请输入账号" autocapitalize="off" autocorrect="off" v-model="username">
+        <!-- <div class="ui basic red pointing prompt label transition visible">不能为空</div> -->
+      </div>
+      <div class="field">
+        <label>密码</label>
+        <input type="password" name="password" placeholder="请输入密码" v-model="password">
+        <!-- <div class="ui basic red pointing prompt label transition visible">不能为空</div> -->
+      </div>
+
+      <div class="field">
+        <label>验证码</label>
+        <input class="yanzhengmaInput" type="text" name="yanzhengma" placeholder="请输入验证码" v-model="yzma">
+        <div class="yanzhengTem"  @click="getyanzheng"><img class="yanzhengimg" :src="'data:image/png;base64,'+tupian"></div>
+      </div>
+
+      <flexbox>
+        <flexbox-item>
+          <x-button type="primary" @click.native="login">登录</x-button>
+        </flexbox-item>
+        <flexbox-item>
+          <x-button @click.native="">注册</x-button>
+        </flexbox-item>
+      </flexbox>
+
+      <!-- <div class="field">
+        <div class="ui two column grid">
+          <div class="column">
+            <a href="/m/signup" class="ui fluid button">登录</a>
+          </div>
+          <div class="column">
+            <a href="regagent" class="ui fluid button">注册</a>
+          </div>
+        </div>
+      </div> -->
+    </div>
+
+
+
+    <!-- <group title="登录">
       <x-input title="帐号:" v-model="username" placeholder="请输入帐号"></x-input>
       <x-input title="密码:" v-model="password" type="password" placeholder="请输入登录密码"></x-input>
-      <!-- <input type="text" placeholder="请输入验证码" class="yanzhengma">
-      <img :src="'data:image/png;base64,'+tupian" style="margin-left: 20px;margin-top: 26px;"> -->
 
       <x-input title="验证码:" v-model="yzma" placeholder="请输入验证码">
         <img class="yanzhengimg" slot="right-full-height" @click="getyanzheng" :src="'data:image/png;base64,'+tupian">
       </x-input>
-        <!--  <img class="yanzhengimg" @click="getyanzheng" :src="'data:image/png;base64,'+tupian"> -->
     </group>
 
     <div style="padding:15px;">
       <x-button @click.native="login" type="primary">登  录</x-button>
-    </div>
+    </div> -->
 
   </div>
 </template>
@@ -66,7 +108,7 @@ export default {
     if (window.ENV == 'dev') {
       //console.log('研发自动登录');
 
-      this.logindev();
+      //this.logindev();
 
     } else {
       //普通用户登录
@@ -221,5 +263,96 @@ export default {
     margin-left: 40px;
 }
 
+
+.ui.form {
+    position: relative;
+    max-width: 100%;
+}
+.ui.form {
+    font-size: 16px;
+}
+.ui.login.form {
+    padding: 15px;
+}
+.ui.form .field {
+    clear: both;
+    margin: 0 0 1em;
+}
+.ui.login.form .field {
+    position: relative;
+}
+.ui.form .field>label {
+    display: block;
+    margin: 0 0 .28571429rem;
+    color: rgba(0,0,0,.87);
+    font-size: .92857143em;
+    font-weight: 700;
+    text-transform: none;
+}
+.ui.form .field.error .input, .ui.form .field.error label, .ui.form .fields.error .field .input, .ui.form .fields.error .field label {
+    color: #9F3A38;
+}
+.ui.login.form .field > label {
+    position: absolute;
+    top: 10px;
+    left: 15px;
+    font-weight: normal;
+}
+.ui.form input:not([type]), .ui.form input[type=text], .ui.form input[type=email], .ui.form input[type=search], .ui.form input[type=password], .ui.form input[type=date], .ui.form input[type=datetime-local], .ui.form input[type=tel], .ui.form input[type=time], .ui.form input[type=file], .ui.form input[type=url], .ui.form input[type=number], .ui.form textarea {
+    width: 100%;
+    vertical-align: top;
+}
+.ui.form input:not([type]), .ui.form input[type=text], .ui.form input[type=email], .ui.form input[type=search], .ui.form input[type=password], .ui.form input[type=date], .ui.form input[type=datetime-local], .ui.form input[type=tel], .ui.form input[type=time], .ui.form input[type=file], .ui.form input[type=url], .ui.form input[type=number] {
+    font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
+    margin: 0;
+    outline: 0;
+    -webkit-appearance: none;
+    tap-highlight-color: rgba(255,255,255,0);
+    line-height: 1.2142em;
+    padding: .67861429em 1em;
+    font-size: 1em;
+    background: #FFF;
+    border: 1px solid rgba(34,36,38,.15);
+    color: rgba(0,0,0,.87);
+    box-shadow: 0 0 0 0 transparent inset;
+    -webkit-transition: color .1s ease,border-color .1s ease;
+    transition: color .1s ease,border-color .1s ease;
+}
+.ui.form .field.error input:not([type]), .ui.form .field.error input[type=text], .ui.form .field.error input[type=email], .ui.form .field.error input[type=search], .ui.form .field.error input[type=password], .ui.form .field.error input[type=date], .ui.form .field.error input[type=datetime-local], .ui.form .field.error input[type=tel], .ui.form .field.error input[type=time], .ui.form .field.error input[type=file], .ui.form .field.error input[type=url], .ui.form .field.error input[type=number], .ui.form .field.error select, .ui.form .field.error textarea, .ui.form .fields.error .field input:not([type]), .ui.form .fields.error .field input[type=text], .ui.form .fields.error .field input[type=email], .ui.form .fields.error .field input[type=search], .ui.form .fields.error .field input[type=password], .ui.form .fields.error .field input[type=date], .ui.form .fields.error .field input[type=datetime-local], .ui.form .fields.error .field input[type=tel], .ui.form .fields.error .field input[type=time], .ui.form .fields.error .field input[type=file], .ui.form .fields.error .field input[type=url], .ui.form .fields.error .field input[type=number], .ui.form .fields.error .field select, .ui.form .fields.error .field textarea {
+    background: #FFF6F6;
+    border-color: #E0B4B4;
+    color: #9F3A38;
+    border-radius: '';
+    box-shadow: none;
+}
+
+.ui.login.form .field input {
+    text-indent: 75px;
+}
+
+.weui-btn_warn {
+    background-color: #E0E1E2;
+}
+
+.yanzhengmaInput {
+  width: 60% !important;
+}
+.yanzhengimg { 
+  height: 40px;
+  width: 120px;
+  position: absolute;
+  top: 0;
+  right: 5px;
+  cursor: pointer;
+}
+
+.yanzhengTem {
+  height: 40px;
+  width: 120px;
+  position: absolute;
+  top: 0;
+  right: 5px;
+  cursor: pointer;
+}
 
 </style>
