@@ -96,12 +96,12 @@ export default {
 
             if(res.code===200){
 
+              store.commit('updatebocaiInfoData',res.data);
+
               if(res.data.companyIsOpenSet == 2) {
                 if(res.data.isOpenSet == 1) {
 
                   store.commit('updateiskaipaning',true);
-
-                  store.commit('updatebocaiInfoData',res.data);
 
                   if(res.data.preResult != '') {
 
@@ -138,13 +138,12 @@ export default {
 
           if(res.code===200){
 
+            store.commit('updatebocaiInfoData',res.data);
 
             if(res.data.companyIsOpenSet == 2) {
               if(res.data.isOpenSet == 1) {
 
                 store.commit('updateiskaipaning',true);
-
-                store.commit('updatebocaiInfoData',res.data);
 
                 if(res.data.preResult != '') {
 
