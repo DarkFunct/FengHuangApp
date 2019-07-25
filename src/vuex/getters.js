@@ -26,7 +26,8 @@ const getters = {
   getisOpenOdds: state => state.isOpenOdds,
   getorderDataList: state => state.orderDataList,
   getbocaiCategoryList: state => state.bocaiCategoryList,
-  getcompleteOddList: state => state.completeOddList
+  getcompleteOddList: state => state.completeOddList,
+  getisLunXuning: state => state.isLunXuning
 }
 
 export default getters

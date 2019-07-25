@@ -89,7 +89,8 @@ export default {
   methods: {
     async bocaiInfo() {
 
-        if(!this.hasResult && this.iskaipaning) {
+      if(this.bocaiTypeId != '') {
+
 
         let res = await this.$get(`${window.url}/api/bocaiInfo?bocaiTypeId=`+this.bocaiTypeId);
 
@@ -105,57 +106,75 @@ export default {
                   if(res.data.preResult != '') {
 
                     store.commit('updatehasResult',true);
+                  } else {
+                    store.commit('updatehasResult',false);
                   }
 
                 } else {
-                  bus.$emit('iskaipaning', false);
+                  store.commit('updateisOpenOdds',false);
+                  store.commit('updateiskaipaning',false);
                   store.commit('updatehasResult',false);
                 }
               } else {
-                bus.$emit('iskaipaning', false);
+                store.commit('updateisOpenOdds',false);
+                store.commit('updateiskaipaning',false);
                 store.commit('updatehasResult',false);
               }
 
             }
-       }
+      }
 
     },
     async getBocaiInfo5sOnce() { 
-      console.log('5秒调一次','this.preResult');
+      console.log('5秒调一次','this.hasResult',this.hasResult,'this.iskaipaning',this.iskaipaning);
 
-       if(!this.hasResult && this.iskaipaning) {
+        if(this.bocaiTypeId != '') {
 
-        let res = await this.$get(`${window.url}/api/bocaiInfo?bocaiTypeId=`+this.bocaiTypeId);
+         if(!this.hasResult) {
 
-            if(res.code===200){
+          store.commit('updateisLunXuning',true);
+
+          let res = await this.$get(`${window.url}/api/bocaiInfo?bocaiTypeId=`+this.bocaiTypeId);
+
+          if(res.code===200){
 
 
-              if(res.data.companyIsOpenSet == 2) {
-                if(res.data.isOpenSet == 1) {
+            if(res.data.companyIsOpenSet == 2) {
+              if(res.data.isOpenSet == 1) {
 
-                  store.commit('updateiskaipaning',true);
+                store.commit('updateiskaipaning',true);
 
-                  store.commit('updatebocaiInfoData',res.data);
+                store.commit('updatebocaiInfoData',res.data);
 
-                  if(res.data.preResult != '') {
+                if(res.data.preResult != '') {
 
-                    store.commit('updatehasResult',true);
-                  }
-
+                  store.commit('updatehasResult',true);
                 } else {
-                  bus.$emit('iskaipaning', false);
                   store.commit('updatehasResult',false);
                 }
+
               } else {
-                bus.$emit('iskaipaning', false);
+                store.commit('updateisOpenOdds',false);
+                store.commit('updateiskaipaning',false);
                 store.commit('updatehasResult',false);
               }
-
+            } else {
+              store.commit('updateisOpenOdds',false);
+              store.commit('updateiskaipaning',false);
+              store.commit('updatehasResult',false);
             }
 
-       }
+          }
 
-        this.t = setTimeout(this.getBocaiInfo5sOnce, window.refreshTimeFast);
+        } else {
+          store.commit('updateisLunXuning', false);
+        }
+
+      } else {
+          store.commit('updateisLunXuning', false);
+      }
+
+      this.t = setTimeout(this.getBocaiInfo5sOnce, window.refreshTimeFast);
     },
     getbocaoName() {
 

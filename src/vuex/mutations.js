@@ -82,6 +82,9 @@ const mutations = {
   },
   updatecompleteOddList(state,v) {
     state.completeOddList = v;
+  },
+  updateisLunXuning(state,v) {
+    state.isLunXuning = v;
   }
 }
 

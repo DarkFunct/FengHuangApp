@@ -1,22 +1,4 @@
 <template>
-
-  <!-- <div class="login_con">
-            <span class="welcome">欢迎登陆</span>
-            <br>
-            <img src="./../../static/img/shouye.png" class="user">
-            <input type="text" id="userName" name="userName" placeholder="请输入用户名" class="username same">
-            <br>
-            <img src="./../../static/img/shouye.png" class="pass">
-            <input type="password" id="userPwd" name="userPwd" placeholder="请输入密码" class="password same">
-            <br>
-            <input type="text" placeholder="请输入验证码" class="yanzhengma">
-            <img :src="'data:image/png;base64,'+tupian" style="margin-left: 20px;margin-top: 26px;">
-            <div class="btn">
-              <button type="button"  class="denglu">登录</button>
-              <button type="button" class="zhuce">注册</button>
-            </div>
-  </div> -->
-
   <div>
     <x-header :left-options="{showBack: false}">凤凰</x-header>
 
@@ -49,32 +31,8 @@
         </flexbox-item>
       </flexbox>
 
-      <!-- <div class="field">
-        <div class="ui two column grid">
-          <div class="column">
-            <a href="/m/signup" class="ui fluid button">登录</a>
-          </div>
-          <div class="column">
-            <a href="regagent" class="ui fluid button">注册</a>
-          </div>
-        </div>
-      </div> -->
     </div>
 
-
-
-    <!-- <group title="登录">
-      <x-input title="帐号:" v-model="username" placeholder="请输入帐号"></x-input>
-      <x-input title="密码:" v-model="password" type="password" placeholder="请输入登录密码"></x-input>
-
-      <x-input title="验证码:" v-model="yzma" placeholder="请输入验证码">
-        <img class="yanzhengimg" slot="right-full-height" @click="getyanzheng" :src="'data:image/png;base64,'+tupian">
-      </x-input>
-    </group>
-
-    <div style="padding:15px;">
-      <x-button @click.native="login" type="primary">登  录</x-button>
-    </div> -->
 
   </div>
 </template>
@@ -84,9 +42,6 @@
 import cookieParser from './../assets/js/cookie';
 import { mapGetters } from 'vuex';
 
-$(".vux-x-input-right-full").on("click", function(){
-alert("讨厌，点我干嘛！");
-});
 
 export default {
   data () {
@@ -108,7 +63,7 @@ export default {
     if (window.ENV == 'dev') {
       //console.log('研发自动登录');
 
-      //this.logindev();
+      this.logindev();
 
     } else {
       //普通用户登录

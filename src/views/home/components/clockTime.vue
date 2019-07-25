@@ -108,7 +108,8 @@
         bocaiInfoData: 'getbocaiInfoData',
         bocaiName: 'getbocaiName',
         hasResult: 'gethasResult',
-        userInfo: 'getuserInfo'
+        userInfo: 'getuserInfo',
+        isLunXuning: 'getisLunXuning'
       }),
       differTime() {
         let now = new Date();
@@ -150,9 +151,11 @@
           this.fengTimeS1 = 0;
           this.fengTimeS2 = 0;
 
-          store.commit('updateisOpenOdds',false);
+          if(!this.isLunXuning) {
+            store.commit('updateisOpenOdds',false);
+            bus.$emit('getbocaiInfo', '');
+          }
 
-          bus.$emit('getbocaiInfo', '');
 
         } 
 

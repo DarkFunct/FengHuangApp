@@ -24,7 +24,8 @@ const state = {
   isOpenOdds: true,
   orderDataList: [],
   bocaiCategoryList: [],
-  completeOddList: [1,8555,8806,8811,8374,8813,8223,8498,8266,9057,8815,8808]
+  completeOddList: [1,8555,8806,8811,8374,8813,8223,8498,8266,9057,8815,8808],
+  isLunXuning: false
 }
 
 export default state
