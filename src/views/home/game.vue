@@ -9,14 +9,11 @@
 
     </div>
 
-    <bet-quick></bet-quick>
-
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex';
-import BetQuick from '@/views/home/components/betQuick';
 import ClockTime from '@/views/home/components/clockTime';
 import OddBody from '@/views/home/components/oddBody';
 
@@ -40,7 +37,6 @@ $(document).ready(function() {
 export default {
   components: {
     ClockTime,
-    BetQuick,
     OddBody
   },
   data() {

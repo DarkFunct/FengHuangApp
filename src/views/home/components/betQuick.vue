@@ -1,10 +1,10 @@
 <template>
   <div class="weui-tabbar vux-demo-tabbar">
-    <a href="javascript:;" class="weui-tabbar__item">
+    <a href="javascript:;" class="weui-tabbar__item" @click="clearOdds()">
       <p class="weui-tabbar__label menuBtnL"><span>清 空</span></p>
     </a> 
     <a href="javascript:;" class="weui-tabbar__item weui-bar__item_on">
-      <p class="weui-tabbar__label menuBtnR"><span>投 注</span><span id="selCount" class="layui-badge layui-bg-blue">{{orderDataList.lenght?orderDataList.lenght:0}}</span></p>
+      <p class="weui-tabbar__label menuBtnR"><span>投 注</span><span v-if="oddsNum!=0" id="selCount" class="layui-badge layui-bg-blue">{{oddsNum}}</span></p>
     </a>
   </div>
 
@@ -23,6 +23,9 @@
 
   export default {
     props: {
+      orderDataList: {
+        type: Array
+      }
     },
     data() {
       return {
@@ -43,12 +46,16 @@
           cuserId:'',//当前登录ID
           list:[]
         },
-        oddIng: false
+        oddIng: false,
+
+        oddsNum: 0
       }
     },
     components: {
     },
     created() {
+
+      console.log('orderDataList',this.orderDataList.length);
     },
     computed:{
       ...mapGetters({
@@ -67,7 +74,6 @@
         hasError: 'gethasError',
         hasErrorMessage: 'gethasErrorMessage',
 
-        orderDataList: 'getorderDataList'
       }),
       totalMoney() {
         let totalMoney = 0;
@@ -82,14 +88,17 @@
       }
     },
     mounted(){
-      bus.$on('isOpenOdds', (data) => {
-        this.isOpenOdds = data;
+      bus.$on('getoddsNum', (data) => {
+        this.oddsNum = data;
       });
       bus.$on('gotoreset', (data) => {
         this.reset();
       });
     },
     methods: {
+      clearOdds() {
+        this.$emit('childByReset', '');
+      },
       inputFuncOrder(moneyOrderTemp) {
         console.log('moneyOrderTemp',moneyOrderTemp);
         store.commit('updatemoneyOrder',moneyOrderTemp);
