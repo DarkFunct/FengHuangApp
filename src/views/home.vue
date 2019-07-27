@@ -128,7 +128,7 @@ export default {
       }
     },
     showBack() {
-      if (this.$route.path.indexOf('game') > -1) {
+      if (this.$route.name == 'game') {
         return {preventGoBack:true,backText:this.bocaiName}
       } else if(['bocaiList','userInfo'].findIndex((n) => n==this.$route.name)>-1) {
         return {showBack:false}
@@ -137,20 +137,32 @@ export default {
       }
     },
     showMore() {
-      if (this.$route.path.indexOf('game') > -1) {
+      if (this.$route.name == 'game') {
         return true
       } else {
         return false
       }
     },
     headTitle() {
-      if (this.$route.path.indexOf('game') > -1) {
-        return ''
-      } else if(this.$route.name == 'rules') {
-        return '游戏规则'
-      } else {
-        return '凤凰'
-      }
+
+      let title = '凤凰';
+
+        switch (this.$route.name) {
+          case 'game':
+            title = '';
+            break;
+          case 'rules':
+            title = '游戏规则';
+            break;
+          case 'betList':
+            title = '投注列表';
+            break;
+          case 'rules':
+            title = '游戏规则';
+            break;
+        }
+
+      return title;
     }
   },
   mounted() {

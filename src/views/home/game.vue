@@ -136,12 +136,16 @@ export default {
 
             store.commit('updatebocaiInfoData',res.data);
 
+            console.log('wefwef',res.data.preResult != '');
+
             if(res.data.companyIsOpenSet == 2) {
               if(res.data.isOpenSet == 1) {
 
                 store.commit('updateiskaipaning',true);
 
                 if(res.data.preResult != '') {
+
+                  console.log('wefwef',res.data.preResult != '');
 
                   store.commit('updatehasResult',true);
                 } else {

@@ -46,8 +46,8 @@ import { mapGetters } from 'vuex';
 export default {
   data () {
     return {
-      password: 'a111111',
-      username: 'a4m3huiyuan1',
+      password: '',
+      username: '',
       yzma: '',
       tupian: '',
       yanzhengma: ''

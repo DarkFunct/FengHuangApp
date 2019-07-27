@@ -60,6 +60,13 @@ const router =  new Router({
               requireAuth: true,
           },
           component: r => require.ensure([], () => r(require('@/views/home/rules')), 'rules'), meta: { requiresAuth: true }
+        },
+
+        { path: '/action/betList', name: 'betList',
+          meta: {                                
+              requireAuth: true,
+          },
+          component: r => require.ensure([], () => r(require('@/views/home/betList')), 'betList'), meta: { requiresAuth: true }
         }
       ]
     }

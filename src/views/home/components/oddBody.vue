@@ -33,7 +33,7 @@
 
     </div>
 
-    <bet-quick :orderDataList="orderDataList" v-on:childByReset="childByReset"></bet-quick>
+    <bet-quick v-on:childByReset="childByReset"></bet-quick>
 
   </div>
 </template>
@@ -61,7 +61,6 @@ export default {
       longhuhe_lmp: {},
       yiwuqiu_lmp: [],
       qianhousan_lmp: [],
-      orderDataList: [],
       normalPay: false,
       shishiZiDatas: {},
       shishiZiDatasList: [],
@@ -88,7 +87,8 @@ export default {
         oddsList: 'getoddsList',
         orderList: 'getorderList',
         moneyOrder: 'getmoneyOrder',
-        isOpenOdds: 'getisOpenOdds'
+        isOpenOdds: 'getisOpenOdds',
+        orderDataList: 'getorderDataList'
       })
   },
   created() {
@@ -132,7 +132,7 @@ export default {
             this.orderDataList.push(obj);
           }
 
-        
+        store.commit('updateorderDataList',this.orderDataList);
       }
 
       console.log('orderDataList',this.orderDataList);
@@ -166,7 +166,7 @@ export default {
     },
    
     allQingkong() {
-      this.orderDataList = [];
+      store.commit('updateorderDataList',[]);
       $('.game_body div').removeClass('active');
       bus.$emit('getoddsNum',this.orderDataList.length);
     },
@@ -192,7 +192,7 @@ export default {
               if(result.code===200){
                 that.oddsList = result.oddsList;
                 
-                that.orderDataList = [];
+                //that.orderDataList = [];
                 that.normalPay = false;
                 bus.$emit('getnormalPay', false); 
 
