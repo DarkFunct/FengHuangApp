@@ -1,7 +1,7 @@
 <template>
   <div class="betListbody">
 
-    <div class="betBody" style="bottom:140px">
+    <div class="betBody">
       <table borer="0" class="table">
         <tbody>
           <tr>
@@ -13,41 +13,27 @@
           </tr>
         </tbody>
         <tbody id="OrderList">
-          <tr data-id="9">
-            <td>全五.一字组合</td>
-            <td>8</td>
-            <td>2.1</td>
-            <td><input type="number" onkeyup="value=value.replace(/[^\d]/g,'')" value="0" class="amount"></td>
-            <td class="delete"><icon type="cancel"></icon></td>
-          </tr>
-          <tr data-id="9">
-            <td>全五.一字组合</td>
-            <td>8</td>
-            <td>2.1</td>
-            <td><input type="number" onkeyup="value=value.replace(/[^\d]/g,'')" value="0" class="amount"></td>
-            <td class="delete"><icon type="cancel"></icon></td>
-          </tr>
-          <tr data-id="9">
-            <td>全五.一字组合</td>
-            <td>8</td>
-            <td>2.1</td>
-            <td><input type="number" onkeyup="value=value.replace(/[^\d]/g,'')" value="0" class="amount"></td>
-            <td class="delete"><icon type="cancel"></icon></td>
+          <tr v-for="(item,index) in orderList">
+            <td>{{item.bocaiCategory2Name}}</td>
+            <td>{{item.bocaiOddName}}</td>
+            <td>{{item.bocaiOdds}}</td>
+            <td><input v-model.number="item.betsMoney" onkeypress="return event.keyCode>=48&&event.keyCode<=57" onkeyup="value=value.replace(/[^\d]/g,'') " ng-pattern="/[^a-zA-Z]/" class="amount"></td>
+            <td class="delete"><icon type="cancel" @click.native="deleteOdd(index)"></icon></td>
           </tr>
         </tbody>
       </table>
     </div>
 
     <div class="kjpanel">
-      <div class="kj">金额：<input type="number" id="setAmount" onkeyup="value=value.replace(/[^\d]/g,'')" value="0" style="width:40px" class="amount"> 
-        <button id="SetBtn" style="width:40px" class="layui-btn layui-btn-mini layui-btn-radius layui-btn-danger">确定</button>
-        <button id="ResBtn" style="width:40px;margin-left:2px" class="layui-btn layui-btn-mini layui-btn-radius layui-btn-danger">重置</button>
+      <div class="kj">金额：<input id="setAmount" v-model.number="setAmount" onkeypress="return event.keyCode>=48&&event.keyCode<=57" onkeyup="value=value.replace(/[^\d]/g,'') " ng-pattern="/[^a-zA-Z]/" class="amount"> 
+        <button id="SetBtn" class="layui-btn layui-btn-mini layui-btn-radius layui-btn-danger" @click="setAmountMoney">确定</button>
+        <button id="ResBtn" class="layui-btn layui-btn-mini layui-btn-radius layui-btn-danger" @click="resetMoney">重置</button>
       </div>
       <div class="spr_chips">
-        <span>10</span>
-        <span>20</span>
-        <span>50</span>
-        <span>100</span>
+        <span @click.stop="orderMul(10)">10</span>
+        <span @click="orderMul(20)">20</span>
+        <span @click="orderMul(50)">50</span>
+        <span @click="orderMul(100)">100</span>
       </div>
     </div>
 
@@ -98,20 +84,22 @@
         },
         oddIng: false,
 
-        oddsNum: 0
+        oddsNum: 0,
+        setAmount: ''
       }
     },
     components: {
     },
     created() {
 
-      console.log('orderDataList',this.orderDataList.length);
+      console.log('orderList',this.orderList);
 
     },
     computed:{
       ...mapGetters({
         orderDataList: 'getorderDataList',
-        curPeriods: 'getcurPeriods'
+        curPeriods: 'getcurPeriods',
+        orderList: 'getorderList'
 
       }),
       totalMoney() {
@@ -137,6 +125,28 @@
     methods: {
       cancelOdds() {
 
+      },
+      deleteOdd(index) {
+        console.log('moneyOrderTemp',4444);
+        this.orderList.splice(index,1);
+
+        store.commit('updateorderList',this.orderList);
+      },
+      orderMul(pay) {
+        for(let n in this.orderList) {
+          this.orderList[n].betsMoney = pay*1 + this.orderList[n].betsMoney*1;
+        }
+      },
+      setAmountMoney() {
+        for(let n in this.orderList) {
+          this.orderList[n].betsMoney = this.setAmount*1;
+        }
+      },
+      resetMoney() {
+        for(let n in this.orderList) {
+          this.orderList[n].betsMoney = '';
+        }
+        this.setAmount = '';
       },
 
       clearOdds() {
@@ -509,14 +519,13 @@
     font-size: 20px;
 }
 .betBody {
-  position: absolute;
   width: 100%;
   height: auto;
-  top: 40px;
   bottom: 58px;
   overflow-x: hidden;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
+  padding-bottom: 80px;
 }
 .kjpanel {
     position: absolute;
@@ -525,13 +534,13 @@
     line-height: 40px;
     text-align: center;
     border-top: 1px solid #ccc;
-    margin-bottom: 90px;
+    margin-bottom: 88px;
     width: 100%;
     background-color: #fff;
 }
 .kjpanel .kj {
     float: left;
-    width: 180px;
+    width: 220px;
     font-size: 12px;
     z-index: 1;
 }
@@ -560,11 +569,10 @@
     line-height: 40px;
     text-align: center;
     border-top: 1px solid #ccc;
-    margin-bottom: 50px;
+    margin-bottom: 48px;
     width: 100%;
     background-color: #fff;
 }
-
 </style>
 
 
