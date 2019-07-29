@@ -17,7 +17,16 @@
       <cell title="退出登录" @click.native="exit" is-link></cell>
     </group>
 
+
+    <div v-transfer-dom>
+      <confirm v-model="isShowExit"
+      :title="'提示'"
+      @on-confirm="onConfirm"
+      >
+        确认退出登录?
+      </confirm>
     </div>
+
   </div>
 </template>
 
@@ -29,7 +38,7 @@ export default {
   },
   data() {
     return {
-
+      isShowExit: false
     }
   },
   async created() {
@@ -62,6 +71,14 @@ export default {
   updated() {
   },
   methods: {
+    async onConfirm() {
+      let ret = await this.$get(`${window.url}/api/exitLogin`);
+      if(ret.code===200) {
+        this.$toast('退出登录成功!');
+      } else {
+      }
+      this.$router.push({name: 'login'});
+    },
     async getnotice() {
       let res = await this.$get(`${window.url}/api/notice`);
 
@@ -75,13 +92,11 @@ export default {
       store.commit('updateheadTitle','修改密码');
       this.$router.push({name: 'changePassword'});
     },
-    async exit() {
-      let ret = await this.$get(`${window.url}/api/exitLogin`);
-      if(ret.code===200) {
-        this.$toast('退出登录成功!');
-      } else {
-      }
-      this.$router.push({name: 'login'});
+    exit() {
+      this.isShowExit = true;
+
+
+      
     },
     async getcUserInfo() {
       let res = await this.$get(`${window.url}/api/cUserInfo`);
