@@ -3,7 +3,7 @@
     <a href="javascript:;" class="weui-tabbar__item" @click="clearOdds()">
       <p class="weui-tabbar__label_p menuBtnL"><span>清 空</span></p>
     </a> 
-    <a href="javascript:;" class="weui-tabbar__item weui-bar__item_on" @click="isOpenOdds?toBetList():''">
+    <a href="javascript:;" class="weui-tabbar__item weui-bar__item_on" @click="isOpenOdds?orderOdds():''">
       <p class="weui-tabbar__label_p menuBtnR" :class="isOpenOdds?'':'closeOddA'"><span>投 注</span><span v-if="oddsNum!=0" id="selCount" class="layui-badge layui-bg-blue">{{oddsNum}}</span></p>
     </a>
   </div>
@@ -75,13 +75,16 @@
         let that = this;
 
         if(this.oddsNum != 0) {
+
           store.commit('updatecurPeriods',this.bocaiInfoData.bocaiPeriods);
+
+          console.log('bocaiCategory',this.bocaiCategory);
 
           this.$isLoading(true);
 
-            await that.$get(`${window.url}/api/getOdds?bocaiTypeId=`+this.bocaiTypeId+`&bocaiCategoryId=`+this.bocaiCategoryId).then((res) => {
+            await that.$get(`${window.url}/api/getOdds?bocaiTypeId=`+this.bocaiTypeId+`&bocaiCategoryId=`+this.bocaiCategory.id).then((res) => {
               that.$handelResponse(res, (result) => {
-              loading.close();
+              that.$isLoading(false);
 
                 if(result.code===200){
 
@@ -119,7 +122,7 @@
         console.log('this.bocaiInfoData',this.bocaiInfoData);
 
         if(!this.isOpenOdds){
-          this.$alertMessage('请输入金额!', '温馨提示');
+          this.$toast('已封盘，不允许下注!');
         } else {
 
           store.commit('updateorderList',[]);

@@ -209,12 +209,12 @@ export default {
       
     },
     clickBack() {
-      console.log('clickBack');
+      //console.log('clickBack');
       //this.placement = 'left';
       this.drawerVisibility = true;
     },
     clickRight() {
-      console.log('clickRight');
+      //console.log('clickRight');
 
       $('.vux-drawer-content.right_menu.drawer-right').addClass('vux-drawer-active');
 

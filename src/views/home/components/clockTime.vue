@@ -154,6 +154,7 @@
           if(!this.isLunXuning) {
             store.commit('updateisOpenOdds',false);
             bus.$emit('getbocaiInfo', '');
+            bus.$emit('allQingkong','');
           }
 
 

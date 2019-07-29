@@ -99,6 +99,9 @@ export default {
     bus.$on('getOddsCategory', (data) => {
         this.getOddsCategory(data);
     });
+    bus.$on('allQingkong',(data) =>{
+      this.allQingkong();
+    });
   },
   methods: {
     oddInto(oddsObj,item) {
@@ -164,7 +167,6 @@ export default {
       this.allQingkong();
 
     },
-   
     allQingkong() {
       store.commit('updateorderDataList',[]);
       $('.game_body div').removeClass('active');
@@ -173,8 +175,6 @@ export default {
     childByReset(data) {
       this.allQingkong();
     },
-
-
     async resetOddsCategory(item) {
 
       let that = this;

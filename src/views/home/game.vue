@@ -122,7 +122,7 @@ export default {
 
     },
     async getBocaiInfo5sOnce() { 
-      console.log('5秒调一次','this.hasResult',this.hasResult,'this.iskaipaning',this.iskaipaning);
+      //console.log('5秒调一次','this.hasResult',this.hasResult,'this.iskaipaning',this.iskaipaning);
 
         if(this.bocaiTypeId != '') {
 
@@ -136,7 +136,7 @@ export default {
 
             store.commit('updatebocaiInfoData',res.data);
 
-            console.log('wefwef',res.data.preResult != '');
+            //console.log('wefwef',res.data.preResult != '');
 
             if(res.data.companyIsOpenSet == 2) {
               if(res.data.isOpenSet == 1) {
@@ -145,7 +145,7 @@ export default {
 
                 if(res.data.preResult != '') {
 
-                  console.log('wefwef',res.data.preResult != '');
+                  //console.log('wefwef',res.data.preResult != '');
 
                   store.commit('updatehasResult',true);
                 } else {
@@ -222,7 +222,7 @@ export default {
 
       store.commit('updatebocaiTypeId', this.pathBocaiId);
 
-      console.log('this.pathBocaiId',this.pathBocaiId);
+      //console.log('this.pathBocaiId',this.pathBocaiId);
 
       this.getOddsInfo();
 
@@ -237,15 +237,15 @@ export default {
           await that.$get(`${window.url}/api/getOdds?bocaiTypeId=`+this.bocaiTypeId).then((res) => {
             that.$handelResponse(res, (result) => {
 
-              this.$isLoading(false);
+              that.$isLoading(false);
               if(result.code===200){
 
                 that.bocaiCategoryList = result.bocaiCategoryList;
 
                 bus.$emit('getOddsCategory',result.bocaiCategoryList[0]);
 
-                //获取菠菜信息
-                this.bocaiInfo();
+                //获取菠菜信息444
+                that.bocaiInfo();
 
               }
             })
@@ -258,7 +258,7 @@ export default {
         this.bocaiInfo();
     });
     bus.$on('togetOddsInfo', (data) => {
-      console.log('getOddsInfo');
+      //console.log('getOddsInfo');
 
         this.getOddsInfo();
     });
