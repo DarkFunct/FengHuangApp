@@ -12,8 +12,8 @@
         <group title="选择玩法">
           <ul>
             <li style="padding-left:45px" @click="goHome()">返回首页</li>
-            <li v-for="(item,index) in bocaiTypeList" @click="getOdds(item)" v-if="completeOddList.findIndex((n) => n==item.bocaiId)>-1">
-              <img :src="require('@/assets/img/icon'+item.bocaiId+'.png')" width="20px">{{item.bocaiName}}
+            <li v-for="(item,index) in bocaiTypeList" @click="getOdds(item)" v-if="completeOddList.findIndex((n) => n==item.bocaiTypeId)>-1">
+              <img :src="require('@/assets/img/icon'+item.bocaiTypeId+'.png')" width="20px">{{item.bocaiTypeName}}
             </li>
           </ul>
         </group>
@@ -180,11 +180,9 @@ export default {
       this.drawerVisibility = false;
     },
     async gotobocai() {
-      let res = await this.$get(`${window.url}/api/getBocai`);
+      let res = await this.$get(`${window.url}/api/bocaiMainPage`);
           if(res.code===200){
-
-            store.commit('updatebocaiTypeList',res.bocaiTypeList);
-
+            store.commit('updatebocaiTypeList',res.data.data);
           }
     },
     async getcUserInfo() {
@@ -225,13 +223,13 @@ export default {
     async getOdds(item) {
 
 
-      if(['重庆时时彩','极速时时彩','广东快乐十分','极速赛车','幸运飞艇','北京赛车','江苏快3'].findIndex((n) => n==item.bocaiName)>-1) {
+      if(['重庆时时彩','极速时时彩','广东快乐十分','极速赛车','幸运飞艇','北京赛车','江苏快3'].findIndex((n) => n==item.bocaiTypeName)>-1) {
 
-        store.commit('updatebocaiTypeId',item.bocaiId);
+        store.commit('updatebocaiTypeId',item.bocaiTypeId);
 
-        store.commit('updatebocaiName',item.bocaiName);
+        store.commit('updatebocaiName',item.bocaiTypeName);
 
-        this.$router.push({path: '/game/'+item.bocaiId});
+        this.$router.push({path: '/game/'+item.bocaiTypeId});
 
         bus.$emit('togetOddsInfo','');
 

@@ -3,8 +3,8 @@
     <div class="layui-row layui-col-space10" v-for="(itemPa,indexPa) in bocaiTypeListTemp">
       <div class="layui-col-xs4" v-for="(item,index) in itemPa">
         <div>
-          <a @click="getOdds(item)"><img :src="require('@/assets/img/icon'+item.bocaiId+'.png')" width="70px" height="70px"><br><span>{{item.bocaiName}}</span></a>
-          <p><span class="time" :class="'bocaiTiem'+item.bocaiId"></span></p>
+          <a @click="getOdds(item)"><img :src="require('@/assets/img/icon'+item.bocaiTypeId+'.png')" width="70px" height="70px"><br><span>{{item.bocaiTypeName}}</span></a>
+          <p><span class="time bocaitimeClass" :class="'bocaiTiem'+item.bocaiTypeId"></span></p>
         </div>
       </div>
 
@@ -39,7 +39,7 @@ export default {
     bocaiTypeListTemp() {
       let arr = [];
       for(let x in this.bocaiTypeList) {
-        if(this.completeOddList.findIndex((n) => n==this.bocaiTypeList[x].bocaiId)>-1) {
+        if(this.completeOddList.findIndex((n) => n==this.bocaiTypeList[x].bocaiTypeId)>-1) {
           arr.push(this.bocaiTypeList[x]);
         }
       }
@@ -88,11 +88,11 @@ export default {
 
       // console.log('item',item);
 
-      // if(['重庆时时彩','极速时时彩','广东快乐十分','极速赛车','幸运飞艇','北京赛车','江苏快3'].findIndex((n) => n==item.bocaiName)>-1) {
+      // if(['重庆时时彩','极速时时彩','广东快乐十分','极速赛车','幸运飞艇','北京赛车','江苏快3'].findIndex((n) => n==item.bocaiTypeName)>-1) {
 
       //   store.commit('updatebocaiTypeId',item.bocaiId);
 
-      //   store.commit('updatebocaiName',item.bocaiName);
+      //   store.commit('updatebocaiName',item.bocaiTypeName);
 
       //   this.$router.push({path: '/game/'+item.bocaiId});
 
@@ -127,7 +127,7 @@ export default {
 
             $('.bocaiTiem'+this.bocaiInfoList[n].bocaiTypeId).html(timeLeft);
 
-            this.getBocaiList();
+            //this.getBocaiList();
 
           } else if(closeTime>0) {
 
@@ -170,6 +170,15 @@ export default {
 
 </script>
 <style scoped lang="less">
-
+.bocaitimeClass {
+  border-radius: 5px;
+  box-shadow: inset 0 0 8px -2px hsla(0,0%,100%,.5);
+  font-size: 14px;
+  background: #fafafa80;
+  padding: 4px 12px;
+  border: 1px solid #fafafa80;
+  font-weight: bold;
+  color: #35495e;
+}
 
 </style>
