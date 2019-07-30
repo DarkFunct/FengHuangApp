@@ -130,9 +130,6 @@
       togetcUserInfo() {
         bus.$emit('getcUserInfo','');
       },
-      getServerDate(){
-          return new Date($.ajax({async: false}).getResponseHeader("Date"));
-      },
       gettimeLeft() {
 
         var now = new Date();
