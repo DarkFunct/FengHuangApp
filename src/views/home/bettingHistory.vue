@@ -1,15 +1,15 @@
 <template>
-  <div class="menuBody" style="bottom: 0px;">
+  <div class="menuBody" style="bottom: 0px;padding: 1px;">
 
     <template v-if="!ifshowBetInfo">
 
       <group title="游戏:">
-        <selector placeholder="请选择游戏" v-model="bocaiTypeId" :options="bocaiList" @on-change="hisOrder"></selector>
+        <selector placeholder="请选择游戏" v-model="bocaiTypeIdSele" :options="bocaiList" @on-change="hisOrderSele"></selector>
       </group>
 
       <table border="0" class="table2">
         <tbody>
-          <caption>本周</caption> 
+          <p>本周</p> 
           <tr>
             <th>日期</th>
             <th>投注金额</th>
@@ -31,16 +31,16 @@
           </tr>
           <tr>
             <th align="right">合计：</th>
-            <th align="right">{{betsAllNow}}</th>
-            <th align="right">{{winnerAllNow}}</th>
-            <th align="right">{{orderAllNow}}</th>
+            <th align="right">{{+betsAllNow}}</th>
+            <th align="right">{{+winnerAllNow}}</th>
+            <th align="right">{{+orderAllNow}}</th>
           </tr>
         </tbody>
       </table>
 
       <table border="0" class="table2">
         <tbody>
-          <caption>上周</caption> 
+          <p>上周</p> 
           <tr>
             <th>日期</th>
             <th>投注金额</th>
@@ -49,10 +49,10 @@
           </tr>
         </tbody>
         <tbody id="orderList">
-          <tr v-if="nowWeekPage.length*1 == '0'">
+          <tr v-if="afterWeekPage.length*1 == '0'">
             <td style="line-height: 26px;" colspan="4">{{"暂无数据"}}</td> 
           </tr>
-          <tr v-else v-for="item in nowWeekPage">
+          <tr v-else v-for="item in afterWeekPage">
             <td>{{item.createDateStr}}</td>
             <td style="text-align:right">{{item.betsMoneySum}}</td>
             <td style="text-align:right">
@@ -62,9 +62,9 @@
           </tr>
           <tr>
             <th align="right">合计：</th>
-            <th align="right">{{betsAllAfter}}</th>
-            <th align="right">{{winnerAllAfter}}</th>
-            <th align="right">{{orderAllAfter}}</th>
+            <th align="right">{{+betsAllAfter}}</th>
+            <th align="right">{{+winnerAllAfter}}</th>
+            <th align="right">{{+orderAllAfter}}</th>
           </tr>
         </tbody>
       </table>
@@ -96,6 +96,14 @@
       <div style="width:100%;text-align:center;">
         <a @click="getbetInfo" style="width:80%;margin-bottom:10px;margin-top:10px" class="layui-btn layui-btn-small layui-btn-normal">点击加载更多</a>
       </div>
+
+      <!-- <div class="weui-tabbar vux-demo-tabbar">
+        <div style="width:100%;text-align:center;color:#fff">
+          共 <span class="qs" id="order_sum">3</span> 笔&nbsp;&nbsp;
+          总投注：<span class="qs" id="order_money">30</span> &nbsp;&nbsp;
+          总输赢：<span class="qs" id="order_win">-30</span>
+        </div>
+      </div> -->
 
       <footer style="">
         <div style="width:100%;text-align:center;color:#fff">
@@ -144,6 +152,7 @@ export default {
     return {
     	pageSize: 0,
     	nowOrder: {},
+      bocaiTypeIdSele: '',
 
       betInfo: {},
       currentPage: 1,
@@ -152,20 +161,20 @@ export default {
       totalbetsMoney: 0,
       totalwinMoney: 0,
       totalpaicai: 0,
-      bocaiTypeList: [],
-      bocaiTypeId: '',
       afterWeekPage: [],
       sumData: {},
       nowWeekPage: [],
-      betsAllNow: '',
-      winnerAllNow: '',
-      orderAllNow: '',
-      betsAllAfter: '',
-      winnerAllAfter: '',
-      orderAllAfter: ''
+      betsAllNow: 0,
+      winnerAllNow: 0,
+      orderAllNow: 0,
+      betsAllAfter: 0,
+      winnerAllAfter: 0,
+      orderAllAfter: 0
     }
   },
   created() {
+    console.log('this.bocaiTypeList',this.bocaiTypeList);
+    this.bocaiTypeIdSele = (this.bocaiTypeId == ''? this.bocaiTypeList[0].bocaiTypeId : this.bocaiTypeId);
   	this.hisOrder();
   },
   computed: {
@@ -187,6 +196,10 @@ export default {
     }
   },
   methods: {
+    hisOrderSele(data) {
+      this.bocaiTypeIdSele = data;
+      this.hisOrder();
+    },
     backBetHis() {
       this.pageSize = 0;
       this.ifshowBetInfo = false;
@@ -225,27 +238,6 @@ export default {
             })
       });
 
-      let res = await this.$get(`${window.url}/api/hisOrderInfo?currentPage=`+this.currentPage+`&pageSize=`+this.pageSize+`&dayStr=`+this.dayStr);
-      if(res.code===200){
-        this.betInfo = res.page;
-        this.sumData = res.sumData[0];
-
-        for(let n in this.betInfo.list) {
-          // this.betInfo.list[n].winMoney =  this.betInfo.list[n].betsMoney*this.betInfo.list[n].bocaiOdds*1 - this.betInfo.list[n].betsMoney*1;
-          if(this.betInfo.list[n].winnerStatus == 0) {
-            this.betInfo.list[n].paicai = this.betInfo.list[n].betsMoney*(-1);
-          } else if(this.betInfo.list[n].winnerStatus == 1) {
-            this.betInfo.list[n].paicai = this.betInfo.list[n].winnerMoney;
-          } else {
-            this.betInfo.list[n].paicai = 0;
-          }
-          this.totalbetsMoney += this.betInfo.list[n].betsMoney*1;
-          this.totalwinMoney += this.betInfo.list[n].betsMoney*1*this.betInfo.list[n].bocaiOdds*1 - this.betInfo.list[n].betsMoney*1;
-          this.totalpaicai += this.betInfo.list[n].paicai*1;
-        }
-
-      }
-
       this.ifshowBetInfo = true;
 
     },
@@ -261,30 +253,30 @@ export default {
     },
     async hisOrder() {
 
-      this.betsAllNow = '';
-      this.winnerAllNow = '';
-      this.orderAllNow = '';
-      this.betsAllAfter = '';
-      this.winnerAllAfter = '';
-      this.orderAllAfter = '';
+      this.betsAllNow = 0;
+      this.winnerAllNow = 0;
+      this.orderAllNow = 0;
+      this.betsAllAfter = 0;
+      this.winnerAllAfter = 0;
+      this.orderAllAfter = 0;
 
-      let res = await this.$get(`${window.url}/api/hisOrder?bocaiTypeId=`+this.bocaiTypeId);
+      let res = await this.$get(`${window.url}/api/hisOrder?bocaiTypeId=`+this.bocaiTypeIdSele);
 
         if(res.code===200){
             this.nowWeekPage = res.page.nowWeekPage;
 
             for(let n in res.page.nowWeekPage) {
-              this.betsAllNow += res.page.nowWeekPage[n].betsMoneySum*1;
-              this.winnerAllNow += res.page.nowWeekPage[n].winnerMoneySum*1;
-              this.orderAllNow += res.page.nowWeekPage[n].orderCount*1;
+              this.betsAllNow += +res.page.nowWeekPage[n].betsMoneySum*1;
+              this.winnerAllNow += +res.page.nowWeekPage[n].winnerMoneySum*1;
+              this.orderAllNow += +res.page.nowWeekPage[n].orderCount*1;
             }  
 
             this.afterWeekPage = res.page.afterWeekPage;
 
             for(let n in res.page.afterWeekPage) {
-              this.betsAllAfter += res.page.afterWeekPage[n].betsMoneySum*1;
-              this.winnerAllAfter += res.page.afterWeekPage[n].winnerMoneySum*1;
-              this.orderAllAfter += res.page.afterWeekPage[n].orderCount*1;
+              this.betsAllAfter += +res.page.afterWeekPage[n].betsMoneySum*1;
+              this.winnerAllAfter += +res.page.afterWeekPage[n].winnerMoneySum*1;
+              this.orderAllAfter += +res.page.afterWeekPage[n].orderCount*1;
             }
 
             console.log('afterWeekPage.length*1',this.afterWeekPage.length*1);
@@ -327,6 +319,51 @@ h1, h2, h3 {
     padding: 10px;
 }
 
+.table2 {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.table2 th {
+    background-color: #9ca9b0;
+    height: 25px;
+    line-height: 25px;
+    color: #fff;
+    font-weight: normal;
+    border: 1px solid #ccc;
+    padding: 3px;
+}
+.table2 td {
+    height: 25px;
+    padding: 5px;
+    text-align: center;
+    border: 1px solid #ccc;
+    padding: 3px;
+}
+
+
+footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: #455463;
+    height: 40px;
+    line-height: 40px;
+    padding: 5px 0px 10px 0px;
+    z-index: 9;
+    overflow: hidden;
+}
+.page header, .page footer {
+    text-align: center;
+    position: absolute;
+}
+.qs {
+    color: #FF5722;
+    margin-left: 2px;
+    margin-right: 2px;
+}
 </style>
 <style lang="less">
   
