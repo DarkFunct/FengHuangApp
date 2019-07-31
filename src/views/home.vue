@@ -19,7 +19,7 @@
         </group>
       </div>
 
-      <view-box ref="viewBox" :body-padding-top="isShowHeader ? '1.227rem' : '0'" body-padding-bottom="1.255rem">
+      <view-box ref="viewBox" :body-padding-top="isShowHeader ? '1.227rem' : '0'" body-padding-bottom="1.255rem" style="background-color: #fff;">
 
         <x-header
           v-if="isShowHeader"

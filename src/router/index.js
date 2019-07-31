@@ -54,6 +54,12 @@ const router =  new Router({
           },
           component: r => require.ensure([], () => r(require('@/views/home/game')), 'game'), meta: { requiresAuth: true }
         },
+        { path: '/action/betList', name: 'betList',
+          meta: {                                
+              requireAuth: true,
+          },
+          component: r => require.ensure([], () => r(require('@/views/home/betList')), 'betList'), meta: { requiresAuth: true }
+        },
 
         { path: '/menu/rules', name: 'rules',
           meta: {                                
@@ -61,13 +67,21 @@ const router =  new Router({
           },
           component: r => require.ensure([], () => r(require('@/views/home/rules')), 'rules'), meta: { requiresAuth: true }
         },
-
-        { path: '/action/betList', name: 'betList',
+        { path: '/menu/instantorder', name: 'instantorder',
           meta: {                                
               requireAuth: true,
           },
-          component: r => require.ensure([], () => r(require('@/views/home/betList')), 'betList'), meta: { requiresAuth: true }
+          component: r => require.ensure([], () => r(require('@/views/home/instantorder')), 'instantorder'), meta: { requiresAuth: true }
+        },
+        { path: '/menu/bettingHistory', name: 'bettingHistory',
+          meta: {                                
+              requireAuth: true,
+          },
+          component: r => require.ensure([], () => r(require('@/views/home/bettingHistory')), 'bettingHistory'), meta: { requiresAuth: true }
         }
+
+
+        
       ]
     }
 
