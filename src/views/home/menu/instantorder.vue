@@ -43,7 +43,7 @@ export default {
   methods: {
   	async getnowOrder() { 
   		let that = this;
-  		this.pageSize = this.pageSize + 5;
+  		this.pageSize = this.pageSize + 10;
 
   		this.$isLoading(true);
           await that.$get(`${window.url}/api/nowOrder?currentPage=1&pageSize=`+this.pageSize).then((res) => {

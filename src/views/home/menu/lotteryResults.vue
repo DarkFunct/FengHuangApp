@@ -26,27 +26,29 @@
           <div class="q">{{item.periods}}</div>
           <div class="t">{{$timestampToTime(item.openPrizetime)}}</div>
         </div>
-        <div class="result">
-          <template v-if="!item.result || item.result == ''">
-            <div><span>暂未开奖</span></div>
-          </template>
-          <template v-else>
-            <div class="ball-icon">{{item.num1}}</div>
-            <div class="ball-icon">{{item.num2}}</div>
-            <div class="ball-icon">{{item.num3}}</div>
-            <div class="ball-icon">{{item.num4}}</div>
-            <div class="ball-icon">{{item.num5}}</div>
-          </template>
-        </div>
-        <div class="p1">
-          <div class="t">{{item.zonghe}}</div>
-          <div class="t"><span :class="item.zonghedaxiao == '大' ? 'red' : ''">{{item.zonghedaxiao}}</span></div>
-          <div class="t"><span :class="item.zonghedanshuang == '双' ? 'red' : ''">{{item.zonghedanshuang}}</span></div>
-          <div class="t"><span :class="item.longhu == '龙' ? 'red' : item.longhu == '虎' ? 'blue' : ''">{{item.longhu}}</span></div>
-          <div class="t">{{item.qiansan}}</div>
-          <div class="t">{{item.zhongsan}}</div>
-          <div class="t">{{item.housan}}</div>
-        </div>
+        <template v-if="!item.result || item.result == ''">
+          <div>
+            <div>暂未开奖</div>
+          </div>
+        </template>
+        <template v-else>
+          <div class="ssc_result">
+            <div :class="'hm'+item.num1">{{item.num1}}</div>
+            <div :class="'hm'+item.num2">{{item.num2}}</div>
+            <div :class="'hm'+item.num3">{{item.num3}}</div>
+            <div :class="'hm'+item.num4">{{item.num4}}</div>
+            <div :class="'hm'+item.num5">{{item.num5}}</div>
+          </div>
+          <div class="p1 clearb">
+            <div class="t headerColor">{{item.zonghe}}</div>
+            <div class="t headerColor"><span :class="item.zonghedaxiao == '大' ? 'red' : ''">{{item.zonghedaxiao}}</span></div>
+            <div class="t headerColor"><span :class="item.zonghedanshuang == '双' ? 'red' : ''">{{item.zonghedanshuang}}</span></div>
+            <div class="t headerColor"><span :class="item.longhu == '龙' ? 'red' : item.longhu == '虎' ? 'blue' : ''">{{item.longhu}}</span></div>
+            <div class="t headerColor">{{item.qiansan}}</div>
+            <div class="t headerColor">{{item.zhongsan}}</div>
+            <div class="t headerColor">{{item.housan}}</div>
+          </div>
+        </template>
       </li>
     </ul>
 
@@ -114,7 +116,7 @@ export default {
 
         $('.OddsCategory'+this.bocaiTypeIdSele).addClass('selected').siblings().removeClass('selected');
 
-        this.pageSize = this.pageSize + 5;
+        this.pageSize = this.pageSize + 10;
 
         this.$isLoading(true);
         await that.$get(`${window.url}/api/openPrizeResult?bocaiTypeId=`+this.bocaiTypeIdSele+`&currentPage=1&pageSize=`+this.pageSize+`&dayStr=`+this.openPrizeTime).then((res) => {

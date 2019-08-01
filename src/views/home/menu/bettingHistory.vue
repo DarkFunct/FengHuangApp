@@ -178,7 +178,7 @@ export default {
     async getbetInfo() {
 
       let that = this;
-      this.pageSize = this.pageSize + 5;
+      this.pageSize = this.pageSize + 10;
 
       this.$isLoading(true);
       await that.$get(`${window.url}/api/hisOrderInfo?currentPage=`+this.currentPage+`&pageSize=`+this.pageSize+`&dayStr=`+this.dayStr).then((res) => {
