@@ -157,8 +157,20 @@ export default {
           case 'betList':
             title = '投注列表';
             break;
-          case 'rules':
-            title = '游戏规则';
+          case 'bettingHistory':
+            title = '下注历史';
+            break;
+          case 'instantorder':
+            title = '即时注单';
+            break;
+          case 'personalinfo':
+            title = '个人资讯';
+            break;
+          case 'caiwumanager':
+            title = '财务管理';
+            break;
+          case 'lotteryResults':
+            title = '开奖结果';
             break;
         }
 
@@ -183,6 +195,8 @@ export default {
       let res = await this.$get(`${window.url}/api/bocaiMainPage`);
           if(res.code===200){
             store.commit('updatebocaiTypeList',res.data.data);
+
+            bus.$emit('getbocaiTypeList');
           }
     },
     async getcUserInfo() {

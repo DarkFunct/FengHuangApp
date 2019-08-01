@@ -2,11 +2,14 @@
   <div class="menuBody" style="bottom: 0px;padding: 1px;">
 
     <template v-if="!ifshowBetInfo">
-
-      <group title="游戏:">
-        <selector placeholder="请选择游戏" v-model="bocaiTypeIdSele" :options="bocaiList" @on-change="hisOrderSele"></selector>
-      </group>
-
+      <div id='game'>
+        <div class="sublist">
+          <div class="menu">
+            <button v-for="(item,index) in bocaiTypeList" class="layui-btn layui-btn-mini layui-btn-radius" :class="['OddsCategory'+item.bocaiTypeId,item.bocaiTypeId == bocaiTypeIdSele? 'selected':'']"  @click="hisOrderSele(item.bocaiTypeId)">{{item.bocaiTypeName}}</button>
+          </div>
+        </div>
+      </div>
+      
       <table border="0" class="table2">
         <tbody>
           <p>本周</p> 
@@ -72,9 +75,9 @@
     </template>
 
     <template v-else>
-      <group>
-        <p><a class="back" @click="backBetHis">返回</a></p> 
-      </group>
+      <div style="width:100%;text-align:center;">
+        <a @click="backBetHis" style="width:80%;margin-bottom:10px;margin-top:10px" class="layui-btn layui-btn-small layui-btn-normal">返回上层</a>
+      </div>
 
       <ul class="list">
         <li v-for="(item,index) in betInfo.list">
@@ -91,48 +94,18 @@
         </li>
       </ul>
 
-
-
       <div style="width:100%;text-align:center;">
         <a @click="getbetInfo" style="width:80%;margin-bottom:10px;margin-top:10px" class="layui-btn layui-btn-small layui-btn-normal">点击加载更多</a>
       </div>
 
-      <!-- <div class="weui-tabbar vux-demo-tabbar">
-        <div style="width:100%;text-align:center;color:#fff">
-          共 <span class="qs" id="order_sum">3</span> 笔&nbsp;&nbsp;
-          总投注：<span class="qs" id="order_money">30</span> &nbsp;&nbsp;
-          总输赢：<span class="qs" id="order_win">-30</span>
-        </div>
-      </div> -->
-
       <footer style="">
         <div style="width:100%;text-align:center;color:#fff">
-          共 <span class="qs" id="order_sum">3</span> 笔&nbsp;&nbsp;
-          总投注：<span class="qs" id="order_money">30</span> &nbsp;&nbsp;
-          总输赢：<span class="qs" id="order_win">-30</span>
+          合计: &nbsp;&nbsp;
+          投注额: <span class="qs" id="order_money">{{sumData.betsMoneySum.toFixed(2)}}</span> &nbsp;&nbsp;
+          可赢金额：<span class="qs" id="order_money">{{sumData.winnerMoneySum.toFixed(2)}}</span> &nbsp;&nbsp;
+          派彩：<span class="qs" id="order_win">{{sumData.winnerMoneyResultSum.toFixed(2)}}</span>
         </div>
       </footer>
-
-
-
-                </tbody> 
-                <tr class="tab-footer">
-                  <td colspan="4" class="tar">此页面统计：</td> 
-                  <td>{{totalbetsMoney.toFixed(2)}}</td> 
-                  <td>{{totalwinMoney.toFixed(2)}}</td> 
-                  <td>&nbsp;</td> 
-                  <td>{{totalpaicai.toFixed(2)}}</td> 
-                  <td>&nbsp;</td>
-                </tr> 
-                <tr class="tab-footer">
-                  <td colspan="4" class="tar">总计：</td> 
-                  <td>{{sumData.betsMoneySum.toFixed(2)}}</td> 
-                  <td>{{sumData.winnerMoneySum.toFixed(2)}}</td> 
-                  <td>&nbsp;</td> 
-                  <td>{{sumData.winnerMoneyResultSum.toFixed(2)}}</td> 
-                  <td>&nbsp;</td>
-                </tr>
-
 
 
     </template>
@@ -174,7 +147,10 @@ export default {
   },
   created() {
     console.log('this.bocaiTypeList',this.bocaiTypeList);
-    this.bocaiTypeIdSele = (this.bocaiTypeId == ''? this.bocaiTypeList[0].bocaiTypeId : this.bocaiTypeId);
+    //this.bocaiTypeIdSele = (this.bocaiTypeId == ''? this.bocaiTypeList[0].bocaiTypeId : this.bocaiTypeId);
+    if(this.bocaiTypeId != '') {
+      this.bocaiTypeIdSele = this.bocaiTypeId;
+    }
   	this.hisOrder();
   },
   computed: {
@@ -182,18 +158,7 @@ export default {
         bocaiName: 'getbocaiName',
         bocaiTypeList: 'getbocaiTypeList',
         bocaiTypeId: 'getbocaiTypeId'
-      }),
-    bocaiList() {
-      let arr = [];
-      for(let n in this.bocaiTypeList) {
-        let obj = {
-          key: this.bocaiTypeList[n].bocaiTypeId,
-          value: this.bocaiTypeList[n].bocaiTypeName
-        }
-        arr.push(obj);
-      }
-      return arr;
-    }
+    })
   },
   methods: {
     hisOrderSele(data) {
@@ -253,6 +218,10 @@ export default {
     },
     async hisOrder() {
 
+      console.log('this.bocaiTypeIdSele',this.bocaiTypeIdSele);
+
+      $('.OddsCategory'+this.bocaiTypeIdSele).addClass('selected').siblings().removeClass('selected');
+
       this.betsAllNow = 0;
       this.winnerAllNow = 0;
       this.orderAllNow = 0;
@@ -260,7 +229,9 @@ export default {
       this.winnerAllAfter = 0;
       this.orderAllAfter = 0;
 
-      let res = await this.$get(`${window.url}/api/hisOrder?bocaiTypeId=`+this.bocaiTypeIdSele);
+      if(this.bocaiTypeIdSele != '') {
+
+        let res = await this.$get(`${window.url}/api/hisOrder?bocaiTypeId=`+this.bocaiTypeIdSele);
 
         if(res.code===200){
             this.nowWeekPage = res.page.nowWeekPage;
@@ -282,9 +253,16 @@ export default {
             console.log('afterWeekPage.length*1',this.afterWeekPage.length*1);
             console.log('nowWeekPage.length*1',this.nowWeekPage.length*1);
         } 
+      }
+
+      
     }
   },
   mounted() {
+    bus.$on('getbocaiTypeList', (data) => {
+        this.bocaiTypeIdSele = this.bocaiTypeList[0].bocaiTypeId;
+        this.hisOrder();
+    });
   },
   updated() {
   }

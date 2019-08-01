@@ -258,8 +258,6 @@ export default {
         this.bocaiInfo();
     });
     bus.$on('togetOddsInfo', (data) => {
-      //console.log('getOddsInfo');
-
         this.getOddsInfo();
     });
   },

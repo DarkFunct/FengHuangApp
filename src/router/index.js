@@ -61,23 +61,36 @@ const router =  new Router({
           component: r => require.ensure([], () => r(require('@/views/home/betList')), 'betList'), meta: { requiresAuth: true }
         },
 
+
         { path: '/menu/rules', name: 'rules',
           meta: {                                
               requireAuth: true,
           },
-          component: r => require.ensure([], () => r(require('@/views/home/rules')), 'rules'), meta: { requiresAuth: true }
+          component: r => require.ensure([], () => r(require('@/views/home/menu/rules')), 'rules'), meta: { requiresAuth: true }
         },
         { path: '/menu/instantorder', name: 'instantorder',
           meta: {                                
               requireAuth: true,
           },
-          component: r => require.ensure([], () => r(require('@/views/home/instantorder')), 'instantorder'), meta: { requiresAuth: true }
+          component: r => require.ensure([], () => r(require('@/views/home/menu/instantorder')), 'instantorder'), meta: { requiresAuth: true }
         },
         { path: '/menu/bettingHistory', name: 'bettingHistory',
           meta: {                                
               requireAuth: true,
           },
-          component: r => require.ensure([], () => r(require('@/views/home/bettingHistory')), 'bettingHistory'), meta: { requiresAuth: true }
+          component: r => require.ensure([], () => r(require('@/views/home/menu/bettingHistory')), 'bettingHistory'), meta: { requiresAuth: true }
+        },
+        { path: '/menu/personalinfo', name: 'personalinfo',
+          meta: {                                
+              requireAuth: true,
+          },
+          component: r => require.ensure([], () => r(require('@/views/home/menu/personalinfo')), 'personalinfo'), meta: { requiresAuth: true }
+        },
+        { path: '/menu/lotteryResults', name: 'lotteryResults',
+          meta: {                                
+              requireAuth: true,
+          },
+          component: r => require.ensure([], () => r(require('@/views/home/menu/lotteryResults')), 'lotteryResults'), meta: { requiresAuth: true }
         }
 
 
