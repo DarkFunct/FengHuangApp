@@ -2,7 +2,7 @@
   <div id="userinfo">
     <nav class="header content">
       <a class="ui user header"><p><label>账   户：</label><span>{{userInfo.username}}</span>({{userInfo.handicap}}盘)</p> 
-        <div class="sub header">现金余额:<span>{{userInfo.cashBalance}}</span>元
+        <div class="sub header">账户余额:<span>{{userInfo.cashBalance}}</span>元
           <a @click="getcUserInfo"><img slot="icon" :src="require('@/assets/img/tongbu.png')"></a>
         </div>
         <div class="sub header">锁定金额：<span style="color: #999999;">{{userInfo.lockBalance}}</span>元
@@ -43,7 +43,6 @@ export default {
   },
   async created() {
     if(this.userInfo.username) {
-      console.log('已登录');
     } else {
       this.getcUserInfo();
     }
@@ -61,9 +60,6 @@ export default {
     bus.$on('getbocaiInfo', (data) => {
         this.bocaiInfo();
     });
-    bus.$on('getcUserInfo', (data) => {
-        this.getcUserInfo();
-    });
     bus.$on('iskaipaning', (data) => {
         this.iskaipaning = data;
     });
@@ -71,6 +67,9 @@ export default {
   updated() {
   },
   methods: {
+    getcUserInfo() {
+      bus.$emit('getcUserInfo', '');
+    },
     async onConfirm() {
       let ret = await this.$get(`${window.url}/api/exitLogin`);
       if(ret.code===200) {
@@ -94,20 +93,8 @@ export default {
     },
     exit() {
       this.isShowExit = true;
-
-
       
-    },
-    async getcUserInfo() {
-      let res = await this.$get(`${window.url}/api/cUserInfo`);
-
-      if(res.code===200){
-        store.commit('updateuserInfo',res.data);
-      } else {
-
-      }
     }
-
 
   }
 };

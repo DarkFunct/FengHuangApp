@@ -30,7 +30,7 @@
           :title="headTitle"
           >
           <span v-if="showMore" slot="right" @click="clickRight">
-            <x-icon type="navicon" size="35" style="fill:#fff;position:relative;top:-8px;right:-3px;"></x-icon>
+            <x-icon v-if="$route.name == 'game'" type="navicon" size="35" style="fill:#fff;position:relative;top:-8px;right:-3px;"></x-icon>
           </span>
         </x-header>
 
@@ -180,6 +180,9 @@ export default {
   mounted() {
     bus.$on('togetOdds', (data) => {
         this.getOdds(data);
+    });
+    bus.$on('getcUserInfo', (data) => {
+        this.getcUserInfo();
     });
   },
   created() {
