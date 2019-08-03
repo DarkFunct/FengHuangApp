@@ -1,9 +1,16 @@
 <template>
-  <div class="menuBody" style="bottom:0;">
+  <div class="menuBody caiwumanager" style="bottom:0;">
     <nav class="header content">
-      <a class="ui user header"><p><label>账   户：</label><span>{{userInfo.username}}</span>({{userInfo.handicap}}盘) <button class="layui-btn layui-btn-mini layui-btn-radius textColorBtn" @click="">设置</button></p> 
+      <a class="ui user header">
+        <p>
+          <label>账   户：</label>
+          <span>{{userInfo.username}}</span>
+          ({{userInfo.handicap}}盘) 
+          <button class="layui-btn layui-btn-mini layui-btn-radius textColorBtn" @click="">设置</button>
+        </p> 
         <div class="sub header">账户余额:<span>{{userInfo.cashBalance}}</span>元
-          <a @click="getcUserInfo"><img slot="icon" :src="require('@/assets/img/tongbu.png')"></a>
+          <button class="layui-btn layui-btn-mini layui-btn-radius textColorBtn" @click="getcUserInfo">刷新</button>
+          <!-- <a @click="getcUserInfo"><img slot="icon" :src="require('@/assets/img/tongbu.png')"></a> -->
         </div>
         <div class="sub header">锁定金额：<span style="color: #999999;">{{userInfo.lockBalance}}</span>元
         </div>
@@ -56,6 +63,12 @@
 
       <group title="提现密码">
         <x-input v-if="bankInfoObj.putForwardPassword == ''" title="密码：" type="text" :min="4" :max="4" v-model="bankInfoObj.putForwardPassword" placeholder="请输入4位数字密码"></x-input>
+
+
+
+        <td v-else><a @click="chanPassType">修改密码</a></td>
+
+        
         <x-input v-else-if="passType" title="旧密码：" type="text" :min="4" :max="4" v-model="oldPass" placeholder="请输入4位数字旧密码"></x-input>
         <x-input v-else-if="passType" title="新密码：" type="text" :min="4" :max="4" v-model="newPass" placeholder="请输入4位数字新密码"></x-input>
       </group>

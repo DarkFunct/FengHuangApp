@@ -1,5 +1,5 @@
 <template>
-  <div class="menuBody" style="bottom: 0px;padding: 1px;">
+  <div class="menuBody lotteryResults" style="bottom: 0px;padding: 1px;">
 
     <div id='game'>
       <div class="sublist">
