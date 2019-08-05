@@ -80,6 +80,8 @@
         </flexbox-item>
       </flexbox>
 
+      <x-button type="default" style="margin-top: 10px;" @click.native="isSetted=true">返回</x-button>
+
       <!-- <x-button style="margin-top: 10px;" type="primary" @click.native="login">确认</x-button> -->
 
     </template>
