@@ -207,6 +207,7 @@ export default {
 
       if(res.code===200){
         store.commit('updateuserInfo',res.data);
+        bus.$emit('newUserInfo','');
       }
     },
     goRightMenu(path) {
