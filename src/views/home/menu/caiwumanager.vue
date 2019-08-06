@@ -6,7 +6,7 @@
           <label>账   户：</label>
           <span>{{userInfo.username}}</span>
           ({{userInfo.handicap}}盘) 
-          <button class="layui-btn layui-btn-mini layui-btn-radius textColorBtn" @click="isSetted=false">设置</button>
+          <button class="layui-btn layui-btn-mini layui-btn-radius textColorBtn" @click="activePage='bankInfo'">设置</button>
         </p> 
         <div class="sub header">账户余额：<span>{{userInfo.cashBalance}}</span>元
           <button class="layui-btn layui-btn-mini layui-btn-radius textColorBtn" @click="getcUserInfo">刷新</button>
@@ -16,7 +16,7 @@
     </nav>
 
 
-    <template v-if="isSetted">
+    <template v-if="activePage == 'main'">
 
       <tab :line-width=2 active-color='#f5b02e' v-model="indexTab">
         <tab-item class="vux-center" selected @on-item-click="toggleTab(0)" key="0">充值</tab-item>
@@ -26,23 +26,39 @@
 
       </tab>
     
-      <swiper v-model="indexTab" height="100px" :show-dots="false">
+      <swiper v-model="indexTab" :show-dots="false">
         <swiper-item key="0">
-          <div class="tab-swiper vux-center">充值 Container</div>
+
+          <group>
+            <cell title="微信支付" is-link @click.native="toPay(1)">
+              <img slot="icon" width="24" style="display:block;margin-right:5px;" src="../../../../static/img/wechatpay-icon.png">
+            </cell>
+            <cell title="支付宝支付" is-link @click.native="toPay(2)">
+              <img slot="icon" width="24" style="display:block;margin-right:5px;" src="../../../../static/img/zfb-icon.png">
+            </cell>
+            <cell title="银行卡支付" is-link @click.native="toPay(3)"> 
+              <img slot="icon" width="24" style="display:block;margin-right:5px;" src="../../../../static/img/online-pay.png">
+            </cell>
+          </group>
+
         </swiper-item>
+
         <swiper-item key="1">
           <div class="tab-swiper vux-center">提现 Container</div>
         </swiper-item>
+
         <swiper-item key="2">
           <div class="tab-swiper vux-center">充值记录 Container</div>
         </swiper-item>
+
         <swiper-item key="3">
           <div class="tab-swiper vux-center">提现记录 Container</div>
         </swiper-item>
+
       </swiper>
     </template>
 
-    <template v-else>
+    <template v-if="activePage == 'bankInfo'">
       <divider>{{'财务帐户设置'}}</divider>
 
       <group title="银行卡--(卡主姓名设置后不能修改)">
@@ -80,11 +96,87 @@
         </flexbox-item>
       </flexbox>
 
-      <x-button type="default" style="margin-top: 10px;" @click.native="isSetted=true">返回</x-button>
-
-      <!-- <x-button style="margin-top: 10px;" type="primary" @click.native="login">确认</x-button> -->
+      <x-button type="default" style="margin-top: 10px;" @click.native="activePage='main'">返回</x-button>
 
     </template>
+
+    <template v-if="activePage == 'pay'">
+      <divider>{{'充值提交'}}</divider>
+
+      <template v-if="chongzhiType == 3">
+        
+      </template>
+      <group title="收款人信息：（若充值异常，点击二维码刷新）">
+        <div class="info">
+          <img src="/static/img/onError.gif" alt="" width="120" height="120">  
+        </div> 
+      </group>
+      <group title="充值信息">
+        <x-input title="银行名称：" v-model="bankInfoObj.bankName" placeholder="请填写充值金额"></x-input>
+        <x-input title="银行名称：" v-model="bankInfoObj.bankName" placeholder="请填写转账账号"></x-input>
+        <x-input title="银行名称：" v-model="bankInfoObj.bankName" placeholder="请填写账号对应的姓名"></x-input>
+      </group>
+
+      <flexbox style="margin-top: 10px;">
+        <flexbox-item>
+          <x-button type="primary" @click.native="submitBankInfo">确认</x-button>
+        </flexbox-item>
+        <flexbox-item>
+          <x-button type="default"  @click.native="activePage = 'main'">返回</x-button>
+        </flexbox-item>
+      </flexbox>
+
+    </template>
+
+
+
+     <el-radio v-model="chongzhiType" label="1" @change="getchongzhiType"><img src="../../../../static/img/WXPAY.6f192a3.png" alt=""></el-radio>
+                      <el-radio v-model="chongzhiType" label="2" @change="getchongzhiType"><img src="../../../../static/img/alipay.8999215.jpg" alt=""></el-radio>
+                      <el-radio v-model="chongzhiType" label="3" @change="getchongzhiType"><img src="../../../../static/img/unionpay.a124865.jpg" alt=""></el-radio>
+
+                    </td> 
+                    <td v-if="chongzhiType == ''">
+                      <p>
+                        <a>如充值异常，请刷新二维码</a>
+                      </p> 
+                      <img src="../../../../static/img/onError.gif" alt="" width="120" height="120" title="点击图片刷新" style="cursor: pointer;">
+                    </td>
+                    <td v-else-if="chongzhiType == '3'">
+                      <div class="kahaoclass" v-for="item in caiwuYinhangzhuanzhangList">
+                        <el-row>
+                          <el-col :span="12"><h3 class="grid-content bg-purple-light">{{item.yinhangLeixing}}</h3></el-col>
+                        </el-row>
+                        <el-row>
+                          <el-col :span="16" class="labelStep">
+                            <span class="grid-content bg-purple">卡号:{{item.yinhangZhanghao}}</span>
+                          </el-col>
+                          <el-col :span="8"><span class="grid-content bg-purple-light">收款人:{{item.shoukuanXingming}}</span></el-col>
+                        </el-row>
+                      </div>
+                    </td>
+                    <td v-else>
+                      <img :src="chongzhiImgSrc" alt="" width="120" height="120" title="充值" >
+                    </td>
+                  </tr> 
+                  <tr>
+                    <td style="border-right: none;">
+                      <p>
+                        <span class="red">*</span>
+                        充值金额：
+                      </p> 
+                      <input type="text" v-model="paymoney" placeholder="请输入金额" style="height: 30px;">
+                    </td> 
+                    <td class="remark" style="border-left: none;">
+                      <span><i class="red">*</i>备注：</span> 
+                      <span style="color: rgb(157, 157, 157); font-size: 11px;">(付款账号,姓名等信息)</span>
+                      <br> 
+                      <textarea v-model="payremark" placeholder="格式如：账号 123，张三" cols="30"></textarea>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+
+
     
 
   </div>
@@ -100,6 +192,7 @@ export default {
     return {
     	pageSize: 0,
       indexTab: 0,
+      activePage: 'main',
     	
       historyDataList: {},
       historyType: '2',
@@ -138,20 +231,27 @@ export default {
   },
   created() {
   	this.bankInfo();
-    this.getIsSetted();
+    this.getActivePage();
   },
   computed: {
     ...mapGetters({
         bocaiName: 'getbocaiName',
         userInfo: 'getuserInfo'
-    })
+    }),
+    isSetted() {
+      return this.bankInfoObj.putForwardPassword == ''? false : true;
+    }
   },
   methods: {
-    getIsSetted() {
+    toPay(data) {
+      this.activePage = 'pay';
+      this.chongzhiType = data;
+    },
+    getActivePage() {
       if(this.bankInfoObj.putForwardPassword == '') {
-        this.isSetted = false
+        this.activePage = 'bankInfo';
       } else {
-        this.isSetted = true;
+        this.activePage = 'main';
       }
     },
     async submitBankInfo() {
@@ -159,6 +259,7 @@ export default {
 
       let that = this;
       let normal = true;
+      let password = '';
 
       //设置过密码
       if(this.isSetted) {
@@ -168,8 +269,14 @@ export default {
             normal = false;
             this.$toast('旧密码不正确!');
           }
+
+          password = this.newPass;
+        } else {
+          password = this.bankInfoObj.putForwardPassword;
         }
         
+      } else {
+        password = this.newPass;
       }
 
       if(normal) {
@@ -181,10 +288,10 @@ export default {
             phone: this.bankInfoObj.phone,//手机号码
             weixin: this.bankInfoObj.weixin,//微信支付账号
             zhifubao: this.bankInfoObj.zhifubao,//支付宝账号
-            putForwardPassword: this.passType ? this.newPass : this.bankInfoObj.putForwardPassword//提现密码
+            putForwardPassword: password
           }
 
-          this.$isLoading(true);
+          that.$isLoading(true);
           await that.$post(`${window.url}/api/bankInfoSub`,dataobj).then((res) => {
             that.$handelResponse(res, (result) => {
               that.$isLoading(false);
@@ -193,7 +300,7 @@ export default {
                 // bus.$emit('getcUserInfo', ''); 
                 // that.orderDatas.list = [];
                 that.$toast('修改成功！');
-                this.isSetted = true;
+                that.activePage = 'main';
                 // that.reset();
                 that.bankInfo();
               }
@@ -235,7 +342,7 @@ export default {
   },
   mounted() {
     bus.$on('newUserInfo', (data) => {
-        this.getIsSetted();
+        this.getActivePage();
     });
   },
   updated() {

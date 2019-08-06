@@ -97,9 +97,14 @@ const router =  new Router({
               requireAuth: true,
           },
           component: r => require.ensure([], () => r(require('@/views/home/menu/caiwumanager')), 'caiwumanager'), meta: { requiresAuth: true }
+        },
+        { path: '/menu/bankInfo', name: 'bankInfo',
+          meta: {                                
+              requireAuth: true,
+          },
+          component: r => require.ensure([], () => r(require('@/views/home/menu/bankInfo')), 'bankInfo'), meta: { requiresAuth: true }
         }
 
-        
       ]
     }
 
