@@ -104,22 +104,40 @@
       <divider>{{'充值提交'}}</divider>
 
       <template v-if="chongzhiType == 3">
-        
+        <group title="收款人信息：">
+          <div class="info">
+            <ul v-if="caiwuYinhangzhuanzhangList.length != 0" class="bank-info">
+              <li v-for="item in caiwuYinhangzhuanzhangList">
+                <b>{{item.yinhangLeixing}}</b> 
+                <p><span>卡号：{{item.yinhangZhanghao}}</span> <span class="r">姓名：{{item.shoukuanXingming}}</span></p>
+              </li>
+            </ul> 
+            <ul v-else>
+              <li>
+                <p>暂无银行转账信息</p>
+              </li>
+            </ul>
+          </div> 
+        </group>
       </template>
-      <group title="收款人信息：（若充值异常，点击二维码刷新）">
-        <div class="info">
-          <img src="/static/img/onError.gif" alt="" width="120" height="120">  
-        </div> 
-      </group>
-      <group title="充值信息">
-        <x-input title="银行名称：" v-model="bankInfoObj.bankName" placeholder="请填写充值金额"></x-input>
-        <x-input title="银行名称：" v-model="bankInfoObj.bankName" placeholder="请填写转账账号"></x-input>
-        <x-input title="银行名称：" v-model="bankInfoObj.bankName" placeholder="请填写账号对应的姓名"></x-input>
+      <template v-else>
+        <group title="收款人信息：（若充值异常，点击二维码刷新）">
+          <div class="info">
+            <img v-if="chongzhiImgSrc == ''" src="../../../../static/img/onError.gif" alt="" width="120" height="120">  
+
+            <img v-else :src="chongzhiImgSrc" alt="" width="120" height="120" title="充值" >
+          </div> 
+        </group>
+      </template>
+      
+      <group title="充值信息" style="margin-top: 15px;">
+        <x-input title="充值金额：" v-model="paymoney" placeholder="请填写充值金额" required></x-input>
+        <x-input title="备  注：" v-model="payremark" placeholder="格式如：账号 123，张三" required></x-input>
       </group>
 
       <flexbox style="margin-top: 10px;">
         <flexbox-item>
-          <x-button type="primary" @click.native="submitBankInfo">确认</x-button>
+          <x-button type="primary" @click.native="submitPayInfo">确认</x-button>
         </flexbox-item>
         <flexbox-item>
           <x-button type="default"  @click.native="activePage = 'main'">返回</x-button>
@@ -130,7 +148,7 @@
 
 
 
-     <el-radio v-model="chongzhiType" label="1" @change="getchongzhiType"><img src="../../../../static/img/WXPAY.6f192a3.png" alt=""></el-radio>
+     <!-- <el-radio v-model="chongzhiType" label="1" @change="getchongzhiType"><img src="../../../../static/img/WXPAY.6f192a3.png" alt=""></el-radio>
                       <el-radio v-model="chongzhiType" label="2" @change="getchongzhiType"><img src="../../../../static/img/alipay.8999215.jpg" alt=""></el-radio>
                       <el-radio v-model="chongzhiType" label="3" @change="getchongzhiType"><img src="../../../../static/img/unionpay.a124865.jpg" alt=""></el-radio>
 
@@ -174,7 +192,7 @@
                     </td>
                   </tr>
                 </table>
-              </div>
+              </div> -->
 
 
     
@@ -218,7 +236,6 @@ export default {
       oldPass: '',
       tabNum: '1',
       passType: false,
-      isSetted: false,
       mima: ['--','0','1','2','3','4','5','6','7','8','9'],
       payType: [
                 {value: '1',label: '微信'},
@@ -243,9 +260,71 @@ export default {
     }
   },
   methods: {
-    toPay(data) {
+    async submitPayInfo() {
+     if(this.paymoney == '') {
+        this.$toast('请确认充值金额!');
+      } else if(this.payremark == '') {
+        this.$toast('请确认充值备注');
+      } else {
+      let subobj = {
+            type: this.chongzhiType*1,//充值方式,1:微信,2:支付宝,3:银行转账
+            money: this.paymoney*1,//充值金额
+            remark: this.payremark//充值备注
+          }
+
+          let res = await this.$post(`${window.url}/api/rechargeInfoSub`, subobj);
+
+          if(res.code === 200) {
+            this.$toast('提交成功!');
+
+            this.paymoney = '';
+            this.payremark = '';
+            this.activePage = 'main';
+
+          }
+      }
+    },
+    async toPay(data) {
+
+      let res = await this.$get(`${window.url}/api/rechargeInfo`);
+
+        if(res.code===200){
+
+          this.caiwuYinhangzhuanzhangList = res.caiwuYinhangzhuanzhangList;
+          this.caiwuChongzhifangshi = res.caiwuChongzhifangshi;
+        }
+
       this.activePage = 'pay';
       this.chongzhiType = data;
+
+      if(this.chongzhiType == '1') {
+        if(this.caiwuChongzhifangshi.weixinEwma != '') {
+          this.chongzhiImgSrc = this.caiwuChongzhifangshi.weixinEwma;
+        } else if(this.caiwuChongzhifangshi.weixinEwmb != '') {
+          this.chongzhiImgSrc = this.caiwuChongzhifangshi.weixinEwmb;
+        } else if(this.caiwuChongzhifangshi.weixinEwmc != '') {
+          this.chongzhiImgSrc = this.caiwuChongzhifangshi.weixinEwmc;
+        } else if(this.caiwuChongzhifangshi.weixinEwmd != '') {
+          this.chongzhiImgSrc = this.caiwuChongzhifangshi.weixinEwmd;
+        } else if(this.caiwuChongzhifangshi.weixinEwme != '') {
+          this.chongzhiImgSrc = this.caiwuChongzhifangshi.weixinEwme;
+        }
+      } else if(this.chongzhiType == '2') {
+        if(this.caiwuChongzhifangshi.zhifubaoEwma != '') {
+          this.chongzhiImgSrc = this.caiwuChongzhifangshi.zhifubaoEwma;
+        } else if(this.caiwuChongzhifangshi.zhifubaoEwmb != '') {
+          this.chongzhiImgSrc = this.caiwuChongzhifangshi.zhifubaoEwmb;
+        } else if(this.caiwuChongzhifangshi.zhifubaoEwmc != '') {
+          this.chongzhiImgSrc = this.caiwuChongzhifangshi.zhifubaoEwmc;
+        } else if(this.caiwuChongzhifangshi.zhifubaoEwmd != '') {
+          this.chongzhiImgSrc = this.caiwuChongzhifangshi.zhifubaoEwmd;
+        } else if(this.caiwuChongzhifangshi.zhifubaoEwme != '') {
+          this.chongzhiImgSrc = this.caiwuChongzhifangshi.zhifubaoEwme;
+        }
+      }
+
+      console.log('this.chongzhiImgSrc',this.chongzhiImgSrc);
+
     },
     getActivePage() {
       if(this.bankInfoObj.putForwardPassword == '') {
@@ -372,6 +451,47 @@ h1, h2, h3 {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.caiwumanager .info {
+    background-color: hsla(0,0%,100%,.3);
+    border-radius: 5px;
+    overflow: hidden;
+    display: -ms-flexbox;
+    display: flex;
+    display: -webkit-flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -ms-flex-align: start;
+    align-items: flex-start;
+    padding: .3rem;
+    margin-bottom: 15px;
+}
+.caiwumanager .info ul {
+    width: 100%;
+}
+.caiwumanager .info li {
+    margin-bottom: .5rem;
+}
+.caiwumanager .info li b {
+    font-weight: 600;
+}
+.caiwumanager p {
+    position: relative;
+    margin-bottom: 15px;
+}
+.caiwumanager .info li p {
+    margin-top: 5px;
+    display: -ms-flexbox;
+    display: flex;
+    display: -webkit-flex;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+}
+.caiwumanager .info img {
+    -ms-flex-item-align: center;
+    -ms-grid-row-align: center;
+    align-self: center;
 }
 </style>
 <style lang="less">
