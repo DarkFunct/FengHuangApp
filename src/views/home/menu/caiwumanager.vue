@@ -44,7 +44,18 @@
         </swiper-item>
 
         <swiper-item key="1">
-          <div class="tab-swiper vux-center">提现 Container</div>
+
+          <p class="grey">* 当前可取余额：<b style="color: green;">{{useMoney}}</b></p> 
+
+          <div class="box">
+            <checker v-model="forwardFaction" radio-required default-item-class="demo1-item" selected-item-class="demo1-item-selected">
+              <checker-item value="1">微信支付</checker-item>
+              <checker-item value="2">支付宝支付</checker-item>
+              <checker-item value="3">银行卡支付</checker-item>
+              <checker-item value="4">现金</checker-item>
+            </checker>
+          </div>
+
         </swiper-item>
 
         <swiper-item key="2">
@@ -390,7 +401,24 @@ export default {
 
     },
     toggleTab(data) {
+
+      console.log('data',data);
+
       this.indexTab = data;
+
+      if(data == 2) {
+        this.forwardList('0',1,10);
+      }
+    },
+    async forwardList(rechType,cpage,pages) {
+
+      this.currentPage = cpage;
+
+      let res = await this.$get(`${window.url}/api/forwardList?status=`+rechType+`&currentPage=`+cpage+`&pageSize=`+pages);
+      if(res.code===200){
+        this.forwardObj = res.page;
+        this.useMoney = res.useMoney;
+      }
     },
     getcUserInfo() {
       bus.$emit('getcUserInfo', '');
