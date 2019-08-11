@@ -4,7 +4,7 @@
       <div class="layui-col-xs4" v-for="(item,index) in itemPa">
         <div>
           <a @click="getOdds(item)"><img :src="require('@/assets/img/icon'+item.bocaiTypeId+'.png')" width="70px" height="70px"><br><span>{{item.bocaiTypeName}}</span></a>
-          <p><span class="time bocaitimeClass" :class="'bocaiTiem'+item.bocaiTypeId"></span></p>
+          <p class="bocaiTimeP"><span class="time bocaitimeClass" :class="'bocaiTiem'+item.bocaiTypeId"></span></p>
         </div>
       </div>
 
@@ -115,9 +115,9 @@ export default {
           let leftTime = this.bocaiInfoList[n].openPrizeTime*1000 - now.getTime() + this.differTime;
 
 
-          console.log('this.bocaiInfoList[n].openPrizeTime',this.bocaiInfoList[n].openPrizeTime);
+          //console.log('this.bocaiInfoList[n].openPrizeTime',this.bocaiInfoList[n].openPrizeTime);
 
-          console.log('this.bocaiInfoList[n].closeTimeSet',this.bocaiInfoList[n].closeTimeSet);
+          //console.log('this.bocaiInfoList[n].closeTimeSet',this.bocaiInfoList[n].closeTimeSet);
 
           let closeTime = leftTime - this.bocaiInfoList[n].closeTimeSet*1000;
 
@@ -131,7 +131,7 @@ export default {
 
           } else if(closeTime>0) {
 
-            console.log('closeTime',closeTime);
+            //console.log('closeTime',closeTime);
 
             let ms = parseInt(closeTime % 1000).toString();
             closeTime = parseInt(closeTime / 1000); 
@@ -144,7 +144,7 @@ export default {
 
             $('.bocaiTiem'+this.bocaiInfoList[n].bocaiTypeId).html(timeLeft);
 
-            console.log('timeLeft',timeLeft);
+            //console.log('timeLeft',timeLeft);
           } else {
             timeLeft = '00' + ":" + '00';
 
@@ -175,11 +175,13 @@ export default {
   box-shadow: inset 0 0 8px -2px hsla(0,0%,100%,.5);
   font-size: 14px;
   background: #fafafa80;
-  padding: 4px 12px;
+  padding: 1px 8px;
   margin: 4px 12px;
   border: 1px solid #fafafa80;
   font-weight: bold;
   color: #35495e;
 }
-
+.bocaiTimeP {
+  margin-top: 2px;
+}
 </style>

@@ -26,9 +26,9 @@
         <flexbox-item>
           <x-button type="primary" @click.native="login">登录</x-button>
         </flexbox-item>
-        <flexbox-item>
+        <!-- <flexbox-item>
           <x-button @click.native="">注册</x-button>
-        </flexbox-item>
+        </flexbox-item> -->
       </flexbox>
 
     </div>

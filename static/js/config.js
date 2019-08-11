@@ -17,8 +17,6 @@ window.url = 'http://47.106.13.12:8008';		//部署
 window.refreshTime = 10000;
 window.refreshTimeFast = 5000;
 
-window.pcUrl = 'http://47.106.13.12:8008/bocai/index.html';		//pc端
-window.appUrl = 'http://47.106.13.12:8008/bocaiApp/index.html';		//pc端
 
 
 

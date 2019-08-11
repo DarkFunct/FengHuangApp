@@ -2,7 +2,8 @@
   <div>
 
     <div class="qs_panel balance">
-      可用余额：<span class="qs" id="balance">{{userInfo.cashBalance}}</span><a @click="togetcUserInfo"><img slot="icon" :src="require('@/assets/img/tongbu.png')"></a>
+      可用余额：<span class="qs" id="balance">{{userInfo.cashBalance}}</span>
+      <button class="layui-btn layui-btn-mini layui-btn-radius textColorBtn" @click="togetcUserInfo">刷新</button>
     </div>
 
     <div class="qs_panel">

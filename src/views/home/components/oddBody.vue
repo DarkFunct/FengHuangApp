@@ -3,7 +3,7 @@
     <div class="sublist">
       <div class="more" style="display:none"><i class="layui-icon" style="font-size:18px"></i></div>
       <div class="menu">
-        <button v-for="(item,index) in bocaiCategoryList" class="layui-btn layui-btn-mini layui-btn-radius" :class="['OddsCategory'+item.id,index==0?'selected':'']"  @click="getOddsCategory(item)">{{item.name}}</button>
+        <button v-for="(item,index) in bocaiCategoryList" class="layui-btn layui-btn-mini layui-btn-radius" :class="['OddsCategory'+item.id,index==0?'selected':'']"  @click="getOddsCategory(item)" v-if="!(['组选三','组选六'].findIndex((n) => n==item.name)>-1)">{{item.name}}</button>
       </div>
 
       <div class="sublist3">
@@ -22,9 +22,10 @@
           <ul>
             <li v-for="(item,index) in itemPa.list">
               <div class="hm" :class="'oddsId'+item.oddsId" @click.stop="oddInto(itemPa,item)">
-                <span class="t" :class="(['二字','一字','三字'].findIndex((n) => n == bocaiCategory.name)>-1)? 'sschm': itemPa.name">{{item.oddsName}}</span>
+                <span class="t" :class="(['一字','二字','三字','二定位','三定位'].findIndex((n) => n == bocaiCategory.name)>-1)? 'sschm': itemPa.name">{{item.oddsName}}</span>
                 <span v-if="isOpenOdds" class="rate">{{item.odds}}</span>
                 <span v-else class="rate">封盘中</span>
+
               </div>
             </li>
           </ul>
