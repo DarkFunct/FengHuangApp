@@ -182,6 +182,6 @@ export default {
   color: #35495e;
 }
 .bocaiTimeP {
-  margin-top: 2px;
+  margin-top: 4px;
 }
 </style>
