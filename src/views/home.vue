@@ -241,7 +241,7 @@ export default {
     async getOdds(item) {
 
 
-      if(['重庆时时彩','极速时时彩','广东快乐十分','极速赛车','幸运飞艇','北京赛车','江苏快3'].findIndex((n) => n==item.bocaiTypeName)>-1) {
+      if(['重庆时时彩','PC蛋蛋','极速时时彩','北京快乐8','广东快乐十分','极速赛车','幸运飞艇','北京赛车','江苏快3','广东11选5'].findIndex((n) => n==item.bocaiTypeName)>-1) {
 
         store.commit('updatebocaiTypeId',item.bocaiTypeId);
 

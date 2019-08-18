@@ -3,7 +3,7 @@
     <div class="sublist">
       <div class="more" style="display:none"><i class="layui-icon" style="font-size:18px"></i></div>
       <div class="menu">
-        <button v-for="(item,index) in bocaiCategoryList" class="layui-btn layui-btn-mini layui-btn-radius" :class="['OddsCategory'+item.id,index==0?'selected':'']"  @click="getOddsCategory(item)" v-if="!(['组选三','组选六'].findIndex((n) => n==item.name)>-1)">{{item.name}}</button>
+        <button v-for="(item,index) in bocaiCategoryList" class="layui-btn layui-btn-mini layui-btn-radius" :class="['OddsCategory'+item.id,index==0?'selected':'']"  @click="getOddsCategory(item)" v-if="!(['组选三','组选六','连码','直选'].findIndex((n) => n==item.name)>-1)">{{item.name}}</button>
       </div>
 
       <div class="sublist3">
@@ -21,12 +21,85 @@
         <div class="game_body">
           <ul>
             <li v-for="(item,index) in itemPa.list">
-              <div class="hm" :class="'oddsId'+item.oddsId" @click.stop="oddInto(itemPa,item)">
-                <span class="t" :class="(['一字','二字','三字','二定位','三定位'].findIndex((n) => n == bocaiCategory.name)>-1)? 'sschm': itemPa.name">{{item.oddsName}}</span>
-                <span v-if="isOpenOdds" class="rate">{{item.odds}}</span>
-                <span v-else class="rate">封盘中</span>
+              <!-- 重庆时时彩 极速时时彩-->
+              <template v-if="[1,8815].findIndex((n) => n==bocaiTypeId)>-1">
+                <div class="hm" :class="'oddsId'+item.oddsId" @click.stop="oddInto(itemPa,item)">
+                  <span class="t" :class="(['一字','二字','三字','二定位','三定位'].findIndex((n) => n == bocaiCategory.name)>-1)? 'sschm': ''">{{item.oddsName}}</span>
+                  <span v-if="isOpenOdds" class="rate">{{item.odds}}</span>
+                  <span v-else class="rate">封盘中</span>
+                </div>
+              </template>
 
-              </div>
+              <!-- 江苏快三-->
+              <template v-if="[8498].findIndex((n) => n==bocaiTypeId)>-1">
+                <div class="hm kuaisanDiv" :class="'oddsId'+item.oddsId" @click.stop="oddInto(itemPa,item)">
+
+                  <template v-if="['三军、大小'].findIndex((n) => n == itemPa.name)>-1">
+                    <template v-if="['大','小'].findIndex((n) => n == item.oddsName)>-1">
+                      <span class="t">{{item.oddsName}}</span>
+                    </template>
+                    <template v-else>
+                      <i :class="'jsk3-icon-'+item.oddsName"></i>
+                    </template>
+                  </template>
+                  <template v-else-if="['点数'].findIndex((n) => n == itemPa.name)>-1">
+                    <span class="t sschm">{{item.oddsName}}</span>
+                  </template>
+                  <template v-else-if="['围骰、全骰'].findIndex((n) => n == itemPa.name)>-1">
+                    <template v-if="['全骰'].findIndex((n) => n == item.oddsName)>-1">
+                      <span class="t">{{item.oddsName}}</span>
+                    </template>
+                    <template v-else>
+                      <i :class="'jsk3-icon-'+item.oddsName.slice(0,1)"></i>
+                      <i :class="'jsk3-icon-'+item.oddsName.slice(2,3)"></i>
+                      <i :class="'jsk3-icon-'+item.oddsName.slice(4,5)"></i>
+                    </template>
+                  </template>
+                  <template v-else>
+                    <i :class="'jsk3-icon-'+item.oddsName.slice(0,1)"></i>
+                    <i :class="'jsk3-icon-'+item.oddsName.slice(2,3)"></i>
+                  </template>
+                  <span v-if="isOpenOdds" class="rate">{{item.odds}}</span>
+                  <span v-else class="rate">封盘中</span>
+                </div>
+              </template>
+
+              <!-- 北京PK10  幸运飞艇 急速赛车-->
+              <template v-if="[8555,8806,9057].findIndex((n) => n==bocaiTypeId)>-1">
+                <div class="hm" :class="'oddsId'+item.oddsId" @click.stop="oddInto(itemPa,item)">
+                  <span class="t" :class="(['一字','二字','三字','二定位','三定位'].findIndex((n) => n == bocaiCategory.name)>-1)? 'sschm': ''">{{item.oddsName}}</span>
+                  <span v-if="isOpenOdds" class="rate">{{item.odds}}</span>
+                  <span v-else class="rate">封盘中</span>
+                </div>
+              </template>
+
+              <!-- pc蛋蛋-->
+              <template v-if="[8223].findIndex((n) => n==bocaiTypeId)>-1">
+                <div class="hm" :class="'oddsId'+item.oddsId" @click.stop="oddInto(itemPa,item)">
+                  <span class="t" :class="(['特码'].findIndex((n) => n == itemPa.name)>-1)? 'sschm': ''">{{item.oddsName}}</span>
+                  <span v-if="isOpenOdds" class="rate">{{item.odds}}</span>
+                  <span v-else class="rate">封盘中</span>
+                </div>
+              </template>
+
+              <!-- 北京快乐8-->
+              <template v-if="[8266].findIndex((n) => n==bocaiTypeId)>-1">
+                <div class="hm" :class="'oddsId'+item.oddsId" @click.stop="oddInto(itemPa,item)">
+                  <span class="t" :class="(['正码'].findIndex((n) => n == itemPa.name)>-1)? 'sschm': ''">{{item.oddsName}}</span>
+                  <span v-if="isOpenOdds" class="rate">{{item.odds}}</span>
+                  <span v-else class="rate">封盘中</span>
+                </div>
+              </template>
+
+              <!-- 广东11选5 -->
+              <template v-if="[8374].findIndex((n) => n==bocaiTypeId)>-1">
+                <div class="hm" :class="'oddsId'+item.oddsId" @click.stop="oddInto(itemPa,item)">
+                  <span class="t" :class="(['单号'].findIndex((n) => n == bocaiCategory.name)>-1)? 'sschm': ''">{{item.oddsName}}</span>
+                  <span v-if="isOpenOdds" class="rate">{{item.odds}}</span>
+                  <span v-else class="rate">封盘中</span>
+                </div>
+              </template>
+              
             </li>
           </ul>
         </div>
@@ -54,8 +127,8 @@ export default {
   },
   data () {
     return {
-      curBocaiTypeId: '8223',
-      curactiveIndex: 'PC蛋蛋',
+      curBocaiTypeId: '',
+      curactiveIndex: '',
       activeIndex: '',
       showOdds: '',
       submenu: '',
@@ -239,7 +312,6 @@ export default {
 
 </script>
 
-<style scoped>
-
+<style lang="less" scoped>
 
 </style>

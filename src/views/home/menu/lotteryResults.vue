@@ -52,6 +52,99 @@
       </li>
     </ul>
 
+    <ul class="resulList" v-if="[8374].findIndex((n) => n==bocaiTypeIdSele)>-1">
+      <li v-for="item in resultList">
+        <div class="p1">
+          <div class="q">{{item.periods}}</div>
+          <div class="t">{{$timestampToTime(item.openPrizetime)}}</div>
+        </div>
+        <template v-if="!item.result || item.result == ''">
+          <div>
+            <div>暂未开奖</div>
+          </div>
+        </template>
+        <template v-else>
+          <div class="ssc_result">
+            <div :class="'hm'+item.num1">{{item.num1}}</div>
+            <div :class="'hm'+item.num2">{{item.num2}}</div>
+            <div :class="'hm'+item.num3">{{item.num3}}</div>
+            <div :class="'hm'+item.num4">{{item.num4}}</div>
+            <div :class="'hm'+item.num5">{{item.num5}}</div>
+          </div>
+          <div class="p1 clearb">
+            <div class="t headerColor">{{item.zonghe}}</div>
+            <div class="t headerColor"><span :class="item.zonghedaxiaohe == '大' ? 'red' : ''">{{item.zonghedaxiaohe}}</span></div>
+            <div class="t headerColor"><span :class="item.zonghedanshuang == '双' ? 'red' : ''">{{item.zonghedanshuang}}</span></div>
+            <div class="t headerColor"><span :class="item.zongheweidaweixiao == '尾大' ? 'red' : ''">{{item.zongheweidaweixiao}}</span></div>
+            <div class="t headerColor"><span :class="item.longhu == '龙' ? 'red' : item.longhu == '虎' ? 'blue' : ''">{{item.longhu}}</span></div>
+
+            <div class="t headerColor"><span :class="item.yidaxiaohe == '大' ? 'red' : item.yidaxiaohe == '小' ? 'blue' : ''">{{item.yidaxiaohe}}</span></div>
+            <div class="t headerColor"><span :class="item.erdaxiaohe == '大' ? 'red' : item.erdaxiaohe == '小' ? 'blue' : ''">{{item.erdaxiaohe}}</span></div>
+            <div class="t headerColor"><span :class="item.sandaxiaohe == '大' ? 'red' : item.sandaxiaohe == '小' ? 'blue' : ''">{{item.sandaxiaohe}}</span></div>
+            <div class="t headerColor"><span :class="item.sidaxiaohe == '大' ? 'red' : item.sidaxiaohe == '小' ? 'blue' : ''">{{item.sidaxiaohe}}</span></div>
+            <div class="t headerColor"><span :class="item.wudaxiaohe == '大' ? 'red' : item.wudaxiaohe == '小' ? 'blue' : ''">{{item.wudaxiaohe}}</span></div>
+            <div class="t headerColor"><span :class="item.yidanshuang == '双' ? 'red' : item.yidanshuang == '单' ? 'blue' : ''">{{item.yidanshuang}}</span></div>
+            <div class="t headerColor"><span :class="item.erdanshuang == '双' ? 'red' : item.erdanshuang == '单' ? 'blue' : ''">{{item.erdanshuang}}</span></div>
+            <div class="t headerColor"><span :class="item.sandanshuang == '双' ? 'red' : item.sandanshuang == '单' ? 'blue' : ''">{{item.sandanshuang}}</span></div>
+            <div class="t headerColor"><span :class="item.sidanshuang == '双' ? 'red' : item.sidanshuang == '单' ? 'blue' : ''">{{item.sidanshuang}}</span></div>
+            <div class="t headerColor"><span :class="item.wudanshuang == '双' ? 'red' : item.wudanshuang == '单' ? 'blue' : ''">{{item.wudanshuang}}</span></div>
+          </div>
+        </template>
+      </li>
+    </ul>
+
+    <ul class="resulList" v-if="[8223].findIndex((n) => n==bocaiTypeIdSele)>-1">
+      <li v-for="item in resultList">
+        <div class="p1">
+          <div class="q">{{item.periods}}</div>
+          <div class="t">{{$timestampToTime(item.openPrizetime)}}</div>
+        </div>
+        <template v-if="!item.result || item.result == ''">
+          <div>
+            <div>暂未开奖</div>
+          </div>
+        </template>
+        <template v-else>
+          <div class="ssc_result">
+            <div :class="'hm'+item.num1">{{item.num1}}</div>
+            <div :class="'hm'+item.num2">{{item.num2}}</div>
+            <div :class="'hm'+item.num3">{{item.num3}}</div>
+          </div>
+          <div class="p1 clearb">
+            <div class="t headerColor">{{item.zonghe}}</div>
+            <div class="t headerColor"><span :class="item.daxiao == '大' ? 'red' : ''">{{item.daxiao}}</span></div>
+            <div class="t headerColor"><span :class="item.danshuang == '双' ? 'red' : ''">{{item.danshuang}}</span></div>
+            <div class="t headerColor">{{item.jizhi}}</div>
+            <div class="t headerColor"><span :class="item.sebo == '红波' ? 'red' : item.sebo == '绿波' ? 'green' : 'blue'">{{item.sebo}}</span></div>
+          </div>
+        </template>
+      </li>
+    </ul>
+
+    <ul class="resulList" v-if="[8498].findIndex((n) => n==bocaiTypeIdSele)>-1">
+      <li v-for="item in resultList">
+        <div class="p1">
+          <div class="q">{{item.periods}}</div>
+          <div class="t">{{$timestampToTime(item.openPrizetime)}}</div>
+        </div>
+        <template v-if="!item.result || item.result == ''">
+          <div>
+            <div>暂未开奖</div>
+          </div>
+        </template>
+        <template v-else>
+          <div class="ssc_result">
+            <i :class="'jsk3-icon-'+item.num1"></i>
+            <i :class="'jsk3-icon-'+item.num2"></i>
+            <i :class="'jsk3-icon-'+item.num3"></i>
+          </div>
+          <div class="p1 clearb">
+            <div class="t headerColor">{{item.zonghe}}</div>
+            <div class="t headerColor"><span :class="item.zonghedaxiao == '大' ? 'red' : ''">{{item.zonghedaxiao}}</span></div>
+          </div>
+        </template>
+      </li>
+    </ul>
 
     <div style="width:100%;text-align:center;">
       <a @click="getPrizeResult" style="width:80%;margin-bottom:10px;margin-top:10px" class="layui-btn layui-btn-small layui-btn-normal">点击加载更多</a>
