@@ -10,24 +10,21 @@
       <div class="qs_left"><span class="qs" id="sq_qs">{{bocaiInfoData.preBocaiPeriods}}</span>期</div>
       <div class="qs_right">
 
-        <div v-if="[1,8815,8223,8374].findIndex((n) => n==bocaiTypeId)>-1" class="ssc_result" id="sq_result">
+        <div v-if="[1,8815,8223,8374,8813,8811,8809].findIndex((n) => n==bocaiTypeId)>-1" class="ssc_result" id="sq_result">
           <div v-for="(item,index) in result" :class="'hm'+item" >{{item}}</div>
         </div>
 
-        <div v-if="[8555,8806,9057].findIndex((n) => n==bocaiTypeId)>-1" class="result" id="sq_result">
-          <div class="hm2">2</div>
-          <div class="hm3">3</div>
-          <div class="hm9">9</div>
-          <div class="hm10">10</div>
-          <div class="hm8">8</div>
-          <div class="hm6">6</div>
-          <div class="hm4">4</div>
-          <div class="hm5">5</div>
-          <div class="hm7">7</div>
-          <div class="hm1">1</div>
+        <div v-if="[8266].findIndex((n) => n==bocaiTypeId)>-1" class="ssc_result" id="sq_result">
+          <div v-for="(item,index) in result.slice(0,10)" :class="'hm'+item" >{{item}}</div>
+          <br>
+          <div v-for="(item,index) in result.slice(10)" :class="'hm'+item" >{{item}}</div>
         </div>
 
-        <div v-if="[8498].findIndex((n) => n==bocaiTypeId)>-1" class="ssc_result" id="sq_result">
+        <div v-if="[8555,8806,9057].findIndex((n) => n==bocaiTypeId)>-1" class="result" id="sq_result">
+          <div v-for="(item,index) in result" :class="'hm'+item" >{{item}}</div>
+        </div>
+
+        <div v-if="[8498,8810].findIndex((n) => n==bocaiTypeId)>-1" class="ssc_result" id="sq_result">
           <i v-for="(item,index) in result" :class="'jsk3-icon-'+item"></i>
         </div>
 

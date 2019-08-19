@@ -216,6 +216,12 @@ export default {
         case '8809':
         name = '广东快乐十分';
         break;
+        case '8810':
+        name = '安徽快3';
+        break;
+        case '8808':
+        name = '六合彩';
+        break;
       }
 
       store.commit('updatebocaiName',name);

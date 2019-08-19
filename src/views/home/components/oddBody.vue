@@ -31,7 +31,7 @@
               </template>
 
               <!-- 江苏快三-->
-              <template v-if="[8498].findIndex((n) => n==bocaiTypeId)>-1">
+              <template v-if="[8498,8810].findIndex((n) => n==bocaiTypeId)>-1">
                 <div class="hm kuaisanDiv" :class="'oddsId'+item.oddsId" @click.stop="oddInto(itemPa,item)">
 
                   <template v-if="['三军、大小'].findIndex((n) => n == itemPa.name)>-1">
@@ -67,7 +67,44 @@
               <!-- 北京PK10  幸运飞艇 急速赛车-->
               <template v-if="[8555,8806,9057].findIndex((n) => n==bocaiTypeId)>-1">
                 <div class="hm" :class="'oddsId'+item.oddsId" @click.stop="oddInto(itemPa,item)">
-                  <span class="t" :class="(['一字','二字','三字','二定位','三定位'].findIndex((n) => n == bocaiCategory.name)>-1)? 'sschm': ''">{{item.oddsName}}</span>
+                  <template v-if="['1~10','1~10名'].findIndex((n) => n == bocaiCategory.name)>-1">
+                    <template v-if="['1','2','3','4','5','6','7','8','9','10'].findIndex((n) => n == item.oddsName)>-1">
+                      <span class="t" :class="'pkhm'+item.oddsName">{{item.oddsName}}</span>
+                    </template>
+                    <template v-else>
+                      <span class="t">{{item.oddsName}}</span>
+                    </template>
+                  </template>
+                  <template v-else>
+                      <span class="t">{{item.oddsName}}</span>
+                    </template>
+                  <span v-if="isOpenOdds" class="rate">{{item.odds}}</span>
+                  <span v-else class="rate">封盘中</span>
+                </div>
+              </template>
+
+              <!-- 广东快乐10分-->
+              <template v-if="[8809].findIndex((n) => n==bocaiTypeId)>-1">
+                <div class="hm" :class="'oddsId'+item.oddsId" @click.stop="oddInto(itemPa,item)">
+                  <template v-if="['两面盘'].findIndex((n) => n == bocaiCategory.name)>-1">
+                    <span class="t">{{item.oddsName}}</span>
+                  </template>
+                  <template v-else-if="['正码'].findIndex((n) => n == bocaiCategory.name)>-1">
+                    <template v-if="['正码'].findIndex((n) => n == itemPa.name)>-1">
+                      <span class="t" :class="'sschm'">{{item.oddsName}}</span>
+                    </template>
+                    <template v-else>
+                      <span class="t">{{item.oddsName}}</span>
+                    </template>
+                  </template>
+                  <template v-else>
+                    <template v-if="['大','小','单','双','合数单','合数双','尾大','尾小','东','南','西','北','中','发','白','龙','虎'].findIndex((n) => n == item.oddsName)>-1">
+                      <span class="t">{{item.oddsName}}</span>
+                    </template>
+                    <template v-else>
+                      <span class="t" :class="'sschm'">{{item.oddsName}}</span>
+                    </template>
+                  </template>
                   <span v-if="isOpenOdds" class="rate">{{item.odds}}</span>
                   <span v-else class="rate">封盘中</span>
                 </div>
@@ -92,7 +129,7 @@
               </template>
 
               <!-- 广东11选5 -->
-              <template v-if="[8374].findIndex((n) => n==bocaiTypeId)>-1">
+              <template v-if="[8374,8813,8811].findIndex((n) => n==bocaiTypeId)>-1">
                 <div class="hm" :class="'oddsId'+item.oddsId" @click.stop="oddInto(itemPa,item)">
                   <span class="t" :class="(['单号'].findIndex((n) => n == bocaiCategory.name)>-1)? 'sschm': ''">{{item.oddsName}}</span>
                   <span v-if="isOpenOdds" class="rate">{{item.odds}}</span>

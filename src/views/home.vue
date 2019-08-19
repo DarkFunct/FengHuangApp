@@ -241,7 +241,11 @@ export default {
     async getOdds(item) {
 
 
-      if(['重庆时时彩','PC蛋蛋','极速时时彩','北京快乐8','广东快乐十分','极速赛车','幸运飞艇','北京赛车','江苏快3','广东11选5'].findIndex((n) => n==item.bocaiTypeName)>-1) {
+      if(['六合彩'].findIndex((n) => n==item.bocaiTypeName)>-1) {
+
+        this.$toast('此菠菜未完成，请等待！');
+
+      } else {
 
         store.commit('updatebocaiTypeId',item.bocaiTypeId);
 
@@ -253,9 +257,6 @@ export default {
 
         this.drawerVisibility = false;
 
-      } else {
-
-        this.$toast('此菠菜未完成，请等待！');
 
       }
 
